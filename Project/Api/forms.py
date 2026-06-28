@@ -1,10 +1,17 @@
 from django import forms
-from .models import Reserva, Partido, Cancha, Estadio
+from .models import Reserva, Partido, Cancha, Estadio, Equipo
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+class EquipoForm(forms.ModelForm):
+    class Meta:
+        model = Equipo
+        fields = ['nombre', 'pais', 'codigo_fifa', 'grupo', 'entrenador']
 
 class EstadioForm(forms.ModelForm):
     class Meta:
         model = Estadio
-        fields = ['nombre', 'ciudad', 'pais', 'capacidad']
+        fields = ['nombre', 'ciudad', 'pais', 'capacidad', 'latitud', 'longitud', 'longitud']
 
 class CanchaForm(forms.ModelForm):
     class Meta:
@@ -32,3 +39,11 @@ class ReservaForm(forms.ModelForm):
             'fecha_inicio': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'motivo': forms.Textarea(attrs={'rows': 3}),
         }
+
+class RegistroForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+

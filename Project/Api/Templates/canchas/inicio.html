@@ -1,0 +1,54 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<h1>⚽ Gestión de Canchas — FIFA World Cup 2026</h1>
+
+<div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px; margin-bottom:30px;">
+  <div class="card" style="text-align:center;">
+    <h2 style="font-size:2em;">{{ estadios.count }}</h2>
+    <p>Estadios registrados</p>
+    <a href="{% url 'lista_estadios' %}" class="btn btn-primary" style="margin-top:10px;">Ver estadios</a>
+  </div>
+  <div class="card" style="text-align:center;">
+    <h2 style="font-size:2em;">{{ partidos_proximos.count }}</h2>
+    <p>Próximos partidos</p>
+    <a href="{% url 'lista_partidos' %}" class="btn btn-primary" style="margin-top:10px;">Ver partidos</a>
+  </div>
+  <div class="card" style="text-align:center;">
+    <h2 style="font-size:2em;">🏟️</h2>
+    <p>Gestionar canchas</p>
+    <a href="{% url 'lista_canchas' %}" class="btn btn-primary" style="margin-top:10px;">Ver canchas</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Próximos partidos</h2>
+  {% if partidos_proximos %}
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Local</th>
+          <th>Visitante</th>
+          <th>Fase</th>
+          <th>Estadio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in partidos_proximos %}
+        <tr>
+          <td>{{ p.fecha|date:"d/m/Y H:i" }}</td>
+          <td>{{ p.equipo_local }}</td>
+          <td>{{ p.equipo_visitante }}</td>
+          <td>{{ p.get_fase_display }}</td>
+          <td>{{ p.cancha.estadio.nombre }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay partidos próximos cargados.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

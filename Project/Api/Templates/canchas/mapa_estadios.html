@@ -1,0 +1,82 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<h1>🗺️ Mapa de Estadios — FIFA World Cup 2026</h1>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<div style="margin-bottom:20px;">
+  {% if not estadios %}
+    <div class="card">
+      <p>No hay estadios con coordenadas cargadas todavía. 
+         <a href="{% url 'lista_estadios' %}">Agregá coordenadas a los estadios.</a>
+      </p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Mapa -->
+<div id="mapa" style="height:500px; border-radius:10px; margin-bottom:30px;"></div>
+
+<!-- Lista de estadios con coordenadas -->
+{% if estadios %}
+<div class="card">
+  <h2>Estadios en el mapa</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>País</th>
+        <th>Capacidad</th>
+        <th>Coordenadas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in estadios %}
+      <tr>
+        <td>{{ e.nombre }}</td>
+        <td>{{ e.ciudad }}</td>
+        <td>{{ e.pais }}</td>
+        <td>{{ e.capacidad }}</td>
+        <td>{{ e.latitud }}, {{ e.longitud }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var estadios = JSON.parse('{{ estadios_json|escapejs }}');
+
+  var mapa = L.map('mapa');
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(mapa);
+
+  if (estadios.length > 0) {
+    var markers = [];
+    estadios.forEach(function(e) {
+      var marker = L.marker([e.lat, e.lng])
+        .addTo(mapa)
+        .bindPopup(
+          '<b>🏟️ ' + e.nombre + '</b><br>' +
+          '📍 ' + e.ciudad + ', ' + e.pais + '<br>' +
+          '👥 Capacidad: ' + e.capacidad
+        );
+      markers.push(marker);
+    });
+
+    var grupo = L.featureGroup(markers);
+    mapa.fitBounds(grupo.getBounds().pad(0.2));
+  } else {
+    mapa.setView([23.634501, -102.552784], 4);
+  }
+</script>
+
+{% endblock %}

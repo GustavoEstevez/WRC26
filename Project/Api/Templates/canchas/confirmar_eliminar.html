@@ -1,0 +1,18 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div class="card" style="max-width:500px;">
+  <h2>⚠️ Confirmar eliminación</h2>
+  <p style="margin: 16px 0;">Estás por eliminar: <strong>{{ objeto }}</strong></p>
+  <p style="color:#888; margin-bottom:20px;">Esta acción no se puede deshacer.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div style="display:flex; gap:10px;">
+      <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+      <a href="javascript:history.back()" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+  <h1>Canchas</h1>
+  <a href="{% url 'crear_cancha' %}" class="btn btn-primary">+ Nueva cancha</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Estadio</th>
+      <th>Tipo</th>
+      <th>Superficie</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in canchas %}
+    <tr>
+      <td>{{ c.numero }}</td>
+      <td>{{ c.estadio.nombre }}</td>
+      <td>{{ c.get_tipo_display }}</td>
+      <td>{{ c.get_superficie_display }}</td>
+      <td>{{ c.get_estado_display }}</td>
+      <td>
+        <a href="{% url 'detalle_cancha' c.pk %}" class="btn btn-secondary">Ver</a>
+        <a href="{% url 'editar_cancha' c.pk %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'eliminar_cancha' c.pk %}" class="btn btn-danger">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No hay canchas registradas.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

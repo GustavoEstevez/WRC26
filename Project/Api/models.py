@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+from datetime import timedelta
+from django.contrib.auth.models import User
 
-@login_required
-def crear_reserva(request, cancha_id):
-    ...
 
 class Estadio(models.Model):
     nombre = models.CharField(max_length=100)
@@ -11,6 +11,8 @@ class Estadio(models.Model):
     pais = models.CharField(max_length=100)
     capacidad = models.PositiveIntegerField()
     imagen = models.ImageField(upload_to='estadios/', blank=True, null=True)
+    latitud = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitud = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre} - {self.ciudad}"
@@ -55,11 +57,11 @@ class Cancha(models.Model):
 
 class Equipo(models.Model):
     GRUPO_CHOICES = [(f'Grupo {letra}', f'Grupo {letra}')
-                     for letra in 'ABCDEFGHIJKLMNOP']  # 16 grupos para 48 equipos
+                     for letra in 'ABCDEFGHIJKLMNOP']
 
     nombre = models.CharField(max_length=100)
     pais = models.CharField(max_length=100)
-    codigo_fifa = models.CharField(max_length=3, unique=True)  # ej: ARG, BRA
+    codigo_fifa = models.CharField(max_length=3, unique=True)
     grupo = models.CharField(max_length=10, choices=GRUPO_CHOICES)
     entrenador = models.CharField(max_length=100)
     bandera = models.ImageField(upload_to='banderas/', blank=True, null=True)
@@ -118,6 +120,34 @@ class Partido(models.Model):
             return f"{self.goles_local} - {self.goles_visitante}"
         return "Por jugarse"
 
+    def clean(self):
+        # No se puede programar dos partidos en la misma cancha y hora
+        conflicto = Partido.objects.filter(
+            cancha=self.cancha,
+            fecha=self.fecha,
+        ).exclude(pk=self.pk)
+
+        if conflicto.exists():
+            raise ValidationError('Ya hay un partido programado en esa cancha a esa hora.')
+
+        # Un equipo no puede jugar dos partidos el mismo día
+        if self.fecha:
+            mismo_dia = Partido.objects.filter(
+                fecha__date=self.fecha.date()
+            ).filter(
+                models.Q(equipo_local=self.equipo_local) |
+                models.Q(equipo_visitante=self.equipo_local) |
+                models.Q(equipo_local=self.equipo_visitante) |
+                models.Q(equipo_visitante=self.equipo_visitante)
+            ).exclude(pk=self.pk)
+
+            if mismo_dia.exists():
+                raise ValidationError('Uno de los equipos ya tiene un partido ese día.')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.equipo_local} vs {self.equipo_visitante} ({self.fecha.strftime('%d/%m/%Y')})"
 
@@ -140,36 +170,52 @@ class Reserva(models.Model):
     motivo = models.TextField(blank=True, help_text="Ej: Entrenamiento pre-partido")
     creada_en = models.DateTimeField(auto_now_add=True)
 
-# En models.py dentro de Reserva+
-def clean(self):
-    from django.core.exceptions import ValidationError
-    conflicto = reserva.objects.filter(
-        cancha=self.cancha,
-        fecha_inicio=self.fecha_inicio,
-        estado='confirmada'
-    ).exists()
-    if conflicto:
-        raise ValidationError('La cancha ya está reservada en ese horario.')
+    def clean(self):
+        # No se puede reservar en el pasado
+        if self.fecha_inicio and self.fecha_inicio < timezone.now():
+            raise ValidationError('No podés crear una reserva en una fecha pasada.')
+
+        # No se puede reservar una cancha ya ocupada en ese horario
+        if self.fecha_inicio and self.duracion_horas:
+            fecha_fin = self.fecha_inicio + timedelta(hours=self.duracion_horas)
+
+            conflictos = Reserva.objects.filter(
+                cancha=self.cancha,
+                estado='confirmada',
+                fecha_inicio__lt=fecha_fin,
+            ).exclude(pk=self.pk)
+
+            for r in conflictos:
+                r_fin = r.fecha_inicio + timedelta(hours=r.duracion_horas)
+                if self.fecha_inicio < r_fin:
+                    raise ValidationError(
+                        f'La cancha ya está reservada de '
+                        f'{r.fecha_inicio.strftime("%d/%m/%Y %H:%M")} '
+                        f'hasta {r_fin.strftime("%d/%m/%Y %H:%M")}.'
+                    )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Reserva: {self.equipo} en {self.cancha} - {self.fecha_inicio.strftime('%d/%m/%Y %H:%M')}"
-
-def editar_cancha(request, pk):
-    cancha = get_object_or_404(Cancha, pk=pk)
-    form = CanchaForm(request.POST or None, instance=cancha)
-    if form.is_valid():
-        form.save()
-        return redirect('lista_canchas')
-    return render(request, 'Api/editar_cancha.html', {'form': form})
-
-def eliminar_reserva(request, pk):
-    reserva = get_object_or_404(Reserva, pk=pk)
-    if request.method == 'POST':
-        reserva.delete()
-        return redirect('lista_canchas')
-    return render(request, 'Api/confirmar_eliminar.html', {'reserva': reserva})
+    
 
 
+class Perfil(models.Model):
+    ROL_CHOICES = [
+        ('admin', 'Administrador'),
+        ('operador', 'Operador'),
+    ]
 
-    class Meta:
-        ordering = ['-creada_en']
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    rol = models.CharField(max_length=10, choices=ROL_CHOICES, default='operador')
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.get_rol_display()}"
+
+
+
+class Meta:
+    verbose_name_plural = "Perfiles"

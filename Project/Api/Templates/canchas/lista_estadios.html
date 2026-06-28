@@ -1,0 +1,37 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+  <h1>Estadios</h1>
+  <a href="{% url 'crear_estadio' %}" class="btn btn-primary">+ Nuevo estadio</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Ciudad</th>
+      <th>País</th>
+      <th>Capacidad</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in estadios %}
+    <tr>
+      <td>{{ e.nombre }}</td>
+      <td>{{ e.ciudad }}</td>
+      <td>{{ e.pais }}</td>
+      <td>{{ e.capacidad }}</td>
+      <td>
+        <a href="{% url 'editar_estadio' e.pk %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'eliminar_estadio' e.pk %}" class="btn btn-danger">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay estadios registrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

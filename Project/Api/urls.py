@@ -5,11 +5,20 @@ urlpatterns = [
     # Inicio
     path('', views.inicio, name='inicio'),
 
+    path('registro/', views.registro, name='registro'),
+
     # Estadios
     path('estadios/', views.lista_estadios, name='lista_estadios'),
     path('estadios/nuevo/', views.crear_estadio, name='crear_estadio'),
     path('estadios/<int:pk>/editar/', views.editar_estadio, name='editar_estadio'),
     path('estadios/<int:pk>/eliminar/', views.eliminar_estadio, name='eliminar_estadio'),
+    path('mapa/', views.mapa_estadios, name='mapa_estadios'),
+    
+    # Equipos
+    path('equipos/', views.lista_equipos, name='lista_equipos'),
+    path('equipos/nuevo/', views.crear_equipo, name='crear_equipo'),
+    path('equipos/<int:pk>/editar/', views.editar_equipo, name='editar_equipo'),
+    path('equipos/<int:pk>/eliminar/', views.eliminar_equipo, name='eliminar_equipo'),
 
     # Canchas
     path('canchas/', views.lista_canchas, name='lista_canchas'),

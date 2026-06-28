@@ -1,0 +1,42 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<h1>Cancha {{ cancha.numero }} — {{ cancha.estadio.nombre }}</h1>
+
+<div class="card">
+  <p><strong>Tipo:</strong> {{ cancha.get_tipo_display }}</p>
+  <p><strong>Superficie:</strong> {{ cancha.get_superficie_display }}</p>
+  <p><strong>Estado:</strong> {{ cancha.get_estado_display }}</p>
+  <p><strong>Dimensiones:</strong> {{ cancha.largo }}m x {{ cancha.ancho }}m</p>
+  <div style="margin-top:16px; display:flex; gap:10px;">
+    <a href="{% url 'crear_reserva' cancha.pk %}" class="btn btn-primary">+ Reservar</a>
+    <a href="{% url 'editar_cancha' cancha.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'lista_canchas' %}" class="btn btn-secondary">Volver</a>
+  </div>
+</div>
+
+<h2>Reservas confirmadas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Equipo</th>
+      <th>Fecha inicio</th>
+      <th>Duración</th>
+      <th>Motivo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservas %}
+    <tr>
+      <td>{{ r.equipo }}</td>
+      <td>{{ r.fecha_inicio|date:"d/m/Y H:i" }}</td>
+      <td>{{ r.duracion_horas }}h</td>
+      <td>{{ r.motivo }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">Sin reservas confirmadas.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

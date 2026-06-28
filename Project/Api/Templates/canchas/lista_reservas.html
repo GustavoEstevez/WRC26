@@ -1,0 +1,41 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+  <h1>Reservas</h1>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cancha</th>
+      <th>Estadio</th>
+      <th>Equipo</th>
+      <th>Fecha inicio</th>
+      <th>Duración</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservas %}
+    <tr>
+      <td>Cancha {{ r.cancha.numero }}</td>
+      <td>{{ r.cancha.estadio.nombre }}</td>
+      <td>{{ r.equipo }}</td>
+      <td>{{ r.fecha_inicio|date:"d/m/Y H:i" }}</td>
+      <td>{{ r.duracion_horas }}h</td>
+      <td>{{ r.get_estado_display }}</td>
+      <td>
+        {% if r.estado != 'cancelada' %}
+          <a href="{% url 'cancelar_reserva' r.pk %}" class="btn btn-danger">Cancelar</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">No hay reservas registradas.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

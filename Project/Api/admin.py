@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Estadio, Cancha, Equipo, Jugador, Partido, Reserva
+from .models import Estadio, Cancha, Equipo, Jugador, Partido, Reserva, Perfil
 
 @admin.register(Estadio)
 class EstadioAdmin(admin.ModelAdmin):
@@ -23,10 +23,15 @@ class JugadorAdmin(admin.ModelAdmin):
 
 @admin.register(Partido)
 class PartidoAdmin(admin.ModelAdmin):
-    list_display = ['equipo_local', 'equipo_visitante', 'fecha', 'fase', 'resultado']
+    list_display = ['equipo_local', 'equipo_visitante', 'fecha', 'fase']
     list_filter = ['fase']
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
     list_display = ['cancha', 'equipo', 'fecha_inicio', 'duracion_horas', 'estado']
     list_filter = ['estado']
+
+@admin.register(Perfil)
+class PerfilAdmin(admin.ModelAdmin):
+    list_display = ['usuario', 'rol']
+    list_filter = ['rol']
