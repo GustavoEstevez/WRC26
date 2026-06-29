@@ -7,9 +7,9 @@
  
 | Nombre | Área |
 |--------|------|
-| [Tu nombre] | Backend |
-| [Nombre compañero] | Frontend |
-| [Nombre compañero] | Documentación y Marketing |
+| [Gustavo Estevez] | Backend |
+| [Martin Clemente] | Frontend |
+| [Thiago Hernandez] | Documentación y Marketing |
  
 ---
  
