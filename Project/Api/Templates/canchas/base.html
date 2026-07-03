@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FIFA World Cup 2026 - Gestión de Canchas</title>
+  <link rel="icon" type="image/png" href="{% static 'Api/images/WorldCupLogo.png' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -35,7 +37,7 @@
     .brand-text { line-height: 1.2; }
     .brand-title {
       font-family: 'Poppins', sans-serif;
-      font-size: 1rem; font-weight: 700; color: #020F2A;
+      font-size: 1rem; font-weight: 700; color: #000;
       letter-spacing: 0.5px; text-transform: uppercase;
     }
     .brand-sub {
@@ -63,11 +65,11 @@
     .nav-links a::after {
       content: ''; position: absolute;
       bottom: 4px; left: 16px; right: 16px;
-      height: 1.5px; background: #020F2A;
+      height: 1.5px; background: #000;
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.25s ease;
     }
-    .nav-links a:hover { color: #020F2A; transform: translateY(-2px); }
+    .nav-links a:hover { color: #000; transform: translateY(-2px); }
     .nav-links a:hover::after { transform: scaleX(1); }
 
     .header-right {
@@ -82,10 +84,10 @@
       text-decoration: none; border: none; cursor: pointer;
       transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
-    .user-btn-primary { background: #020F2A; color: #fff; border: 1.5px solid transparent; }
-    .user-btn-primary:hover { background: #1a2a4a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2,15,42,0.2); }
-    .user-btn-secondary { background: transparent; color: #020F2A; border: 1.5px solid #d2d5d9; }
-    .user-btn-secondary:hover { border-color: #020F2A; background: rgba(2,15,42,0.04); transform: translateY(-1px); }
+    .user-btn-primary { background: #000; color: #fff; border: 1.5px solid transparent; }
+    .user-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2,15,42,0.2); }
+    .user-btn-secondary { background: transparent; color: #000; border: 1.5px solid #d2d5d9; }
+    .user-btn-secondary:hover { border-color: #000; background: rgba(2,15,42,0.04); transform: translateY(-1px); }
     .user-btn-logout {
       color: #d93025; background: none; font-weight: 500;
       padding: 8px 12px; border-radius: 6px;
@@ -96,12 +98,12 @@
     h1, h2 { margin-bottom: 20px; color: #1a1a2e; }
     table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-    th { background: #020F2A; color: #fff; padding: 14px 12px; text-align: left; font-weight: 600; font-size: 0.85rem; }
+    th { background: #000; color: #fff; padding: 14px 12px; text-align: left; font-weight: 600; font-size: 0.85rem; }
     td { padding: 12px; border-bottom: 1px solid #e8eaed; }
     tr:hover { background: #f8f9fa; }
     .btn { display: inline-block; padding: 8px 16px; border-radius: 8px; text-decoration: none;
            font-size: 0.85rem; border: none; cursor: pointer; font-weight: 500; transition: all 0.15s; }
-    .btn-primary   { background: #020F2A; color: #fff; }
+    .btn-primary   { background: #000; color: #fff; }
     .btn-primary:hover { background: #1a2a4a; }
     .btn-warning   { background: #f0a500; color: #fff; }
     .btn-danger    { background: #d93025; color: #fff; }
@@ -115,7 +117,7 @@
       transition: border-color 0.15s; background: #fff;
     }
     form input:focus, form select:focus, form textarea:focus {
-      outline: none; border-color: #020F2A; box-shadow: 0 0 0 3px rgba(2,15,42,0.1);
+      outline: none; border-color: #000; box-shadow: 0 0 0 3px rgba(2,15,42,0.1);
     }
     .messages { margin-bottom: 24px; }
     .messages li { list-style: none; padding: 12px 16px; border-radius: 8px;
@@ -146,15 +148,13 @@
 </head>
 <body>
 
-{% load static %}
-
 <header class="header">
   <div class="header-inner">
     <a href="{% url 'inicio' %}" class="header-brand">
       <img src="{% static 'Api/images/WorldCupLogo.png' %}" alt="World Cup 2026" class="wc-logo"
            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <svg viewBox="0 0 1000 62" class="wc-logo" style="display:none" xmlns="http://www.w3.org/2000/svg">
-        <path d="m822.347 45.149c2.127-0.77 3.671-1.895 4.604-3.379 0.95-1.473 1.416-3.296 1.416-5.462v-11.447c0-2.223-0.467-4.07-1.416-5.554-0.933-1.484-2.478-2.598-4.604-3.332-2.143-0.738-4.912-1.113-8.339-1.113-3.471 0-6.256 0.376-8.359 1.113-2.119 0.734-3.651 1.847-4.62 3.332-0.969 1.484-1.448 3.331-1.448 5.554v11.447c0 2.166 0.478 3.989 1.448 5.462 0.969 1.484 2.502 2.609 4.62 3.379 2.103 0.77 4.888 1.145 8.359 1.145 3.427 0 6.196-0.375 8.339-1.145zm-36.858 9.987c-6.5-3.954-9.739-10.49-9.739-19.598v-9.915c0-9.109 3.24-15.656 9.739-19.646 6.492-3.986 15.995-5.973 28.52-5.973 12.536 0 22.028 1.987 28.496 5.973 6.456 3.99 9.695 10.537 9.695 19.646v9.915c0 9.108-3.24 15.644-9.695 19.598-6.468 3.962-15.96 5.941-28.496 5.941-12.524 0-22.028-1.979-28.52-5.941zm50.047-12.776c0 1.82-0.958 3.172-2.857 4.046-1.899 0.885-4.78 1.332-8.654 1.332-4.373 0-7.708-0.454-10.002-1.364-2.299-0.91-3.452-2.159-3.452-3.755v-2.122c0-1.596 1.105-2.785 3.324-3.579 2.214-0.794 5.538-1.189 9.967-1.189 3.918 0 6.846 0.407 8.77 1.237 1.935 0.814 2.904 2.051 2.904 3.695zm17.037-15.625c-4.489-2.649-11.02-3.966-19.602-3.966-5.785 0-10.506 0.571-14.132 1.704-3.639 1.141-6.276 2.773-7.932 4.895-0.503 0.658-0.407 1.66-0.758 2.406v-6.87c0-2.73 0.479-4.876 1.448-6.436 0.966-1.564 2.426-2.681 4.385-3.36 1.959-0.69 4.58-1.025 7.88-1.025 3.232 0 5.694 0.267 7.373 0.802 1.668 0.55 2.542 1.332 2.598 2.346v0.849h23.416v-0.757c-0.102-3.918-1.376-7.158-3.79-9.712-2.414-2.553-6.065-4.457-10.936-5.713-4.888-1.249-11.08-1.867-18.577-1.867-12.724 0-22.112 2.05-28.149 6.168-6.052 4.118-9.073 10.729-9.073 19.814v10.565c0 5.841 1.329 10.553 3.998 14.132 2.669 3.579 6.743 6.192 12.221 7.836 5.482 1.656 12.536 2.474 21.178 2.474 8.231 0 14.902-0.655 20.009-1.963 5.119-1.305 8.922-3.356 11.415-6.168 2.51-2.821 3.755-6.516 3.755-11.124v-3.403c0-5.107-2.25-8.994-6.727-11.627zm-76.931-22.491c-5.366-2.869-13.53-4.305-24.49-4.305-10.621 0-18.728 1.6-24.314 4.772-5.598 3.184-8.51 8.044-8.734 14.575v2.202h23.768v-2.118c0.057-1.82 0.898-3.232 2.506-4.222 1.62-0.993 3.942-1.492 6.95-1.492 3.008 0 5.187 0.384 6.551 1.153 1.365 0.77 2.055 1.947 2.055 3.531v1.54c0 0.85-0.224 1.576-0.642 2.171-0.431 0.595-1.11 1.117-2.039 1.572-0.945 0.455-2.182 0.83-3.71 1.109l-14.659 2.73c-5.223 0.849-9.316 2.11-12.265 3.79-2.952 1.68-5.063 3.822-6.344 6.423-1.285 2.626-1.915 5.854-1.915 9.716v11.93h65.083v-12.958h-40.896v-0.418c0-0.794 0.128-1.445 0.387-1.959 0.255-0.51 0.71-0.933 1.36-1.281 0.655-0.339 1.612-0.655 2.861-0.933 0.335-0.115 0.766-0.199 1.269-0.256l15.333-2.729c4.664-0.854 8.399-1.855 11.208-3.02 2.809-1.169 4.967-2.753 6.471-4.772 1.504-2.015 2.262-4.64 2.262-7.88v-2.637c0-6.252-2.681-10.809-8.055-13.677z" fill="#020F2A"/>
+        <path d="m822.347 45.149c2.127-0.77 3.671-1.895 4.604-3.379 0.95-1.473 1.416-3.296 1.416-5.462v-11.447c0-2.223-0.467-4.07-1.416-5.554-0.933-1.484-2.478-2.598-4.604-3.332-2.143-0.738-4.912-1.113-8.339-1.113-3.471 0-6.256 0.376-8.359 1.113-2.119 0.734-3.651 1.847-4.62 3.332-0.969 1.484-1.448 3.331-1.448 5.554v11.447c0 2.166 0.478 3.989 1.448 5.462 0.969 1.484 2.502 2.609 4.62 3.379 2.103 0.77 4.888 1.145 8.359 1.145 3.427 0 6.196-0.375 8.339-1.145zm-36.858 9.987c-6.5-3.954-9.739-10.49-9.739-19.598v-9.915c0-9.109 3.24-15.656 9.739-19.646 6.492-3.986 15.995-5.973 28.52-5.973 12.536 0 22.028 1.987 28.496 5.973 6.456 3.99 9.695 10.537 9.695 19.646v9.915c0 9.108-3.24 15.644-9.695 19.598-6.468 3.962-15.96 5.941-28.496 5.941-12.524 0-22.028-1.979-28.52-5.941zm50.047-12.776c0 1.82-0.958 3.172-2.857 4.046-1.899 0.885-4.78 1.332-8.654 1.332-4.373 0-7.708-0.454-10.002-1.364-2.299-0.91-3.452-2.159-3.452-3.755v-2.122c0-1.596 1.105-2.785 3.324-3.579 2.214-0.794 5.538-1.189 9.967-1.189 3.918 0 6.846 0.407 8.77 1.237 1.935 0.814 2.904 2.051 2.904 3.695zm17.037-15.625c-4.489-2.649-11.02-3.966-19.602-3.966-5.785 0-10.506 0.571-14.132 1.704-3.639 1.141-6.276 2.773-7.932 4.895-0.503 0.658-0.407 1.66-0.758 2.406v-6.87c0-2.73 0.479-4.876 1.448-6.436 0.966-1.564 2.426-2.681 4.385-3.36 1.959-0.69 4.58-1.025 7.88-1.025 3.232 0 5.694 0.267 7.373 0.802 1.668 0.55 2.542 1.332 2.598 2.346v0.849h23.416v-0.757c-0.102-3.918-1.376-7.158-3.79-9.712-2.414-2.553-6.065-4.457-10.936-5.713-4.888-1.249-11.08-1.867-18.577-1.867-12.724 0-22.112 2.05-28.149 6.168-6.052 4.118-9.073 10.729-9.073 19.814v10.565c0 5.841 1.329 10.553 3.998 14.132 2.669 3.579 6.743 6.192 12.221 7.836 5.482 1.656 12.536 2.474 21.178 2.474 8.231 0 14.902-0.655 20.009-1.963 5.119-1.305 8.922-3.356 11.415-6.168 2.51-2.821 3.755-6.516 3.755-11.124v-3.403c0-5.107-2.25-8.994-6.727-11.627zm-76.931-22.491c-5.366-2.869-13.53-4.305-24.49-4.305-10.621 0-18.728 1.6-24.314 4.772-5.598 3.184-8.51 8.044-8.734 14.575v2.202h23.768v-2.118c0.057-1.82 0.898-3.232 2.506-4.222 1.62-0.993 3.942-1.492 6.95-1.492 3.008 0 5.187 0.384 6.551 1.153 1.365 0.77 2.055 1.947 2.055 3.531v1.54c0 0.85-0.224 1.576-0.642 2.171-0.431 0.595-1.11 1.117-2.039 1.572-0.945 0.455-2.182 0.83-3.71 1.109l-14.659 2.73c-5.223 0.849-9.316 2.11-12.265 3.79-2.952 1.68-5.063 3.822-6.344 6.423-1.285 2.626-1.915 5.854-1.915 9.716v11.93h65.083v-12.958h-40.896v-0.418c0-0.794 0.128-1.445 0.387-1.959 0.255-0.51 0.71-0.933 1.36-1.281 0.655-0.339 1.612-0.655 2.861-0.933 0.335-0.115 0.766-0.199 1.269-0.256l15.333-2.729c4.664-0.854 8.399-1.855 11.208-3.02 2.809-1.169 4.967-2.753 6.471-4.772 1.504-2.015 2.262-4.64 2.262-7.88v-2.637c0-6.252-2.681-10.809-8.055-13.677z" fill="#000"/>
       </svg>
       <div class="brand-text">
         <div class="brand-title">World Cup 2026</div>
