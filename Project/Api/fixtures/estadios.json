@@ -1,0 +1,210 @@
+[
+  {
+    "model": "Api.estadio",
+    "pk": 1,
+    "fields": {
+      "nombre": "BC Place Vancouver",
+      "ciudad": "Vancouver",
+      "pais": "Canadá",
+      "capacidad": 52000,
+      "latitud": "49.276800",
+      "longitud": "-123.111900",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 2,
+    "fields": {
+      "nombre": "Toronto Stadium (BMO Field)",
+      "ciudad": "Toronto",
+      "pais": "Canadá",
+      "capacidad": 43000,
+      "latitud": "43.633300",
+      "longitud": "-79.418600",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 3,
+    "fields": {
+      "nombre": "Mexico City Stadium (Estadio Azteca)",
+      "ciudad": "Ciudad de México",
+      "pais": "México",
+      "capacidad": 81000,
+      "latitud": "19.302900",
+      "longitud": "-99.150500",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 4,
+    "fields": {
+      "nombre": "Guadalajara Stadium (Estadio Akron)",
+      "ciudad": "Guadalajara",
+      "pais": "México",
+      "capacidad": 46000,
+      "latitud": "20.682900",
+      "longitud": "-103.462300",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 5,
+    "fields": {
+      "nombre": "Monterrey Stadium (Estadio BBVA)",
+      "ciudad": "Monterrey",
+      "pais": "México",
+      "capacidad": 51000,
+      "latitud": "25.669700",
+      "longitud": "-100.244700",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 6,
+    "fields": {
+      "nombre": "Atlanta Stadium (Mercedes-Benz Stadium)",
+      "ciudad": "Atlanta",
+      "pais": "Estados Unidos",
+      "capacidad": 68000,
+      "latitud": "33.755400",
+      "longitud": "-84.400900",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 7,
+    "fields": {
+      "nombre": "Boston Stadium (Gillette Stadium)",
+      "ciudad": "Boston",
+      "pais": "Estados Unidos",
+      "capacidad": 64000,
+      "latitud": "42.090900",
+      "longitud": "-71.264300",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 8,
+    "fields": {
+      "nombre": "Dallas Stadium (AT&T Stadium)",
+      "ciudad": "Dallas",
+      "pais": "Estados Unidos",
+      "capacidad": 71000,
+      "latitud": "32.747300",
+      "longitud": "-97.094500",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 9,
+    "fields": {
+      "nombre": "Houston Stadium (NRG Stadium)",
+      "ciudad": "Houston",
+      "pais": "Estados Unidos",
+      "capacidad": 69000,
+      "latitud": "29.684700",
+      "longitud": "-95.410700",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 10,
+    "fields": {
+      "nombre": "Kansas City Stadium (Arrowhead Stadium)",
+      "ciudad": "Kansas City",
+      "pais": "Estados Unidos",
+      "capacidad": 69000,
+      "latitud": "39.048900",
+      "longitud": "-94.483900",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 11,
+    "fields": {
+      "nombre": "Los Angeles Stadium (SoFi Stadium)",
+      "ciudad": "Los Angeles",
+      "pais": "Estados Unidos",
+      "capacidad": 70000,
+      "latitud": "33.953500",
+      "longitud": "-118.339200",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 12,
+    "fields": {
+      "nombre": "Miami Stadium (Hard Rock Stadium)",
+      "ciudad": "Miami",
+      "pais": "Estados Unidos",
+      "capacidad": 64000,
+      "latitud": "25.958000",
+      "longitud": "-80.238900",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 13,
+    "fields": {
+      "nombre": "New York New Jersey Stadium (MetLife Stadium)",
+      "ciudad": "Nueva York",
+      "pais": "Estados Unidos",
+      "capacidad": 81000,
+      "latitud": "40.813500",
+      "longitud": "-74.074500",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 14,
+    "fields": {
+      "nombre": "Philadelphia Stadium (Lincoln Financial Field)",
+      "ciudad": "Philadelphia",
+      "pais": "Estados Unidos",
+      "capacidad": 68000,
+      "latitud": "39.900800",
+      "longitud": "-75.167500",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 15,
+    "fields": {
+      "nombre": "San Francisco Bay Area Stadium (Levi's Stadium)",
+      "ciudad": "San Francisco",
+      "pais": "Estados Unidos",
+      "capacidad": 69000,
+      "latitud": "37.403000",
+      "longitud": "-121.970000",
+      "imagen": ""
+    }
+  },
+  {
+    "model": "Api.estadio",
+    "pk": 16,
+    "fields": {
+      "nombre": "Seattle Stadium (Lumen Field)",
+      "ciudad": "Seattle",
+      "pais": "Estados Unidos",
+      "capacidad": 67000,
+      "latitud": "47.595200",
+      "longitud": "-122.331600",
+      "imagen": ""
+    }
+  }
+]
