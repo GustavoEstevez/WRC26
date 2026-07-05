@@ -3,7 +3,9 @@
 
 <div style="display:flex; justify-content:space-between; align-items:center;">
   <h1>Estadios</h1>
+  {% if request.user.perfil.rol == 'admin' %}
   <a href="{% url 'crear_estadio' %}" class="btn btn-primary">+ Nuevo estadio</a>
+{% endif %}
 </div>
 
 <table>
@@ -24,8 +26,12 @@
       <td>{{ e.pais }}</td>
       <td>{{ e.capacidad }}</td>
       <td>
-        <a href="{% url 'editar_estadio' e.pk %}" class="btn btn-warning">Editar</a>
-        <a href="{% url 'eliminar_estadio' e.pk %}" class="btn btn-danger">Eliminar</a>
+       <td>
+  {% if request.user.perfil.rol == 'admin' %}
+    <a href="{% url 'editar_estadio' e.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'eliminar_estadio' e.pk %}" class="btn btn-danger">Eliminar</a>
+  {% endif %}
+</td>
       </td>
     </tr>
     {% empty %}

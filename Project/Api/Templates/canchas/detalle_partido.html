@@ -1,0 +1,80 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div style="margin-bottom:16px;">
+  <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">← Volver a partidos</a>
+</div>
+
+<div class="card">
+  <h1 style="font-size:1.8em; margin-bottom:8px;">{{ partido.nombre_partido }}</h1>
+  <p style="color:#888; margin-bottom:20px;">{{ partido.get_fase_display }}</p>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+    <div>
+      <p><strong>📅 Fecha:</strong> {{ partido.fecha|date:"d/m/Y H:i" }}</p>
+      <p><strong>🏟️ Estadio:</strong> {{ partido.estadio.nombre }}</p>
+      <p><strong>📍 Ciudad:</strong> {{ partido.estadio.ciudad }}, {{ partido.estadio.pais }}</p>
+    </div>
+    <div>
+      <p><strong>🎟️ Entradas disponibles:</strong> {{ partido.entradas_disponibles }}</p>
+      {% if partido.arbitro %}
+        <p><strong>👨‍⚖️ Árbitro:</strong> {{ partido.arbitro }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if partido.ya_jugado %}
+    <div style="padding:16px; background:#fff3cd; border-radius:8px; margin-bottom:20px;">
+      <p>⚽ Este partido ya se jugó.</p>
+      {% if partido.goles_local is not None %}
+        <p style="font-size:1.4em; font-weight:bold; margin-top:8px;">
+          Resultado: {{ partido.resultado }}
+        </p>
+      {% endif %}
+    </div>
+  {% else %}
+    <div style="padding:16px; background:#e6f4ea; border-radius:8px; margin-bottom:24px;">
+      <p style="font-size:1.1em;">
+        ⏳ Faltan <strong>{{ partido.dias_restantes }} días</strong> para este partido
+      </p>
+    </div>
+
+    <h2 style="margin-bottom:16px;">Precios de entradas</h2>
+    <table style="margin-bottom:24px;">
+      <thead>
+        <tr><th>Categoría</th><th>Precio</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🟢 General</td><td><strong>${{ partido.precio_general }}</strong></td></tr>
+        <tr><td>🔵 Platea</td><td><strong>${{ partido.precio_platea }}</strong></td></tr>
+        <tr><td>⭐ VIP</td><td><strong>${{ partido.precio_vip }}</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-bottom:16px;">Comprar entradas</h2>
+    <form method="post" action="{% url 'agregar_carrito' partido.pk %}" style="max-width:400px;">
+      {% csrf_token %}
+      <div style="margin-bottom:16px;">
+        <label style="font-weight:bold; display:block; margin-bottom:8px;">Categoría</label>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:normal;">
+            <input type="radio" name="categoria" value="general" checked> 🟢 General (${{ partido.precio_general }})
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:normal;">
+            <input type="radio" name="categoria" value="platea"> 🔵 Platea (${{ partido.precio_platea }})
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:normal;">
+            <input type="radio" name="categoria" value="vip"> ⭐ VIP (${{ partido.precio_vip }})
+          </label>
+        </div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="font-weight:bold; display:block; margin-bottom:8px;">Cantidad</label>
+        <input type="number" name="cantidad" value="1" min="1" max="10" style="width:100px;">
+      </div>
+      <button type="submit" class="btn btn-primary">🛒 Agregar al carrito</button>
+    </form>
+  {% endif %}
+</div>
+
+{% endblock %}

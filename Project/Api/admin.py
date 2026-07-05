@@ -1,35 +1,30 @@
 from django.contrib import admin
-from .models import Estadio, Cancha, Equipo, Jugador, Partido, Reserva, Perfil
+from .models import Estadio, Equipo, Jugador, Partido, Entrada, Perfil
 
 @admin.register(Estadio)
 class EstadioAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'ciudad', 'pais', 'capacidad']
-    search_fields = ['nombre', 'ciudad', 'pais']
-
-@admin.register(Cancha)
-class CanchaAdmin(admin.ModelAdmin):
-    list_display = ['numero', 'estadio', 'tipo', 'superficie', 'estado']
-    list_filter = ['estado', 'tipo', 'superficie']
+    search_fields = ['nombre', 'ciudad']
 
 @admin.register(Equipo)
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'codigo_fifa', 'pais', 'grupo']
+    list_display = ['nombre', 'codigo_fifa', 'grupo']
     list_filter = ['grupo']
 
 @admin.register(Jugador)
 class JugadorAdmin(admin.ModelAdmin):
-    list_display = ['apellido', 'nombre', 'numero_camiseta', 'posicion', 'equipo']
+    list_display = ['apellido', 'nombre', 'posicion', 'equipo']
     list_filter = ['posicion', 'equipo']
 
 @admin.register(Partido)
 class PartidoAdmin(admin.ModelAdmin):
-    list_display = ['equipo_local', 'equipo_visitante', 'fecha', 'fase']
+    list_display = ['nombre_partido', 'fecha', 'fase', 'estadio']
     list_filter = ['fase']
 
-@admin.register(Reserva)
-class ReservaAdmin(admin.ModelAdmin):
-    list_display = ['cancha', 'equipo', 'fecha_inicio', 'duracion_horas', 'estado']
-    list_filter = ['estado']
+@admin.register(Entrada)
+class EntradaAdmin(admin.ModelAdmin):
+    list_display = ['codigo', 'usuario', 'partido', 'categoria', 'cantidad', 'precio_total', 'estado']
+    list_filter = ['estado', 'categoria']
 
 @admin.register(Perfil)
 class PerfilAdmin(admin.ModelAdmin):

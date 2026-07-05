@@ -167,9 +167,7 @@
     <nav class="nav-links">
       <a href="{% url 'inicio' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a4 4 0 014-4h10a4 4 0 014 4v2"/></svg> Inicio</a>
       <a href="{% url 'lista_estadios' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/><path d="M6 14.5v3.5"/><path d="M18 14.5v3.5"/></svg> Estadios</a>
-      <a href="{% url 'lista_canchas' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M12 5v14"/><path d="M2 12h20"/><circle cx="12" cy="12" r="2"/></svg> Canchas</a>
       <a href="{% url 'lista_partidos' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Partidos</a>
-      <a href="{% url 'lista_reservas' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Reservas</a>
       <a href="{% url 'lista_equipos' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Equipos</a>
       <a href="{% url 'mapa_estadios' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Mapa</a>
     </nav>
@@ -181,11 +179,13 @@
         <path d="m283 0h104v327h-104m-283-327h253l-26 72h-123v66h99l-26 72h-73v118h-104m456-328h253l-26 72h-123v66h99l-26 72h-73v118h-104m319-328-119 328h101l13-43h116l13 43h101l-119-328m-53 87 39 133h-78" fill="#000"/>
       </svg>
       {% if user.is_authenticated %}
-        <span style="color:#3c4043;font-size:0.85rem;font-weight:500;">{{ user.username }}</span>
-        <form method="post" action="{% url 'logout' %}" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit" class="user-btn user-btn-logout">Cerrar sesión</button>
-        </form>
+      <a href="{% url 'mis_entradas' %}" class="user-btn user-btn-secondary">🎟️ Mis Entradas</a>
+     <a href="{% url 'ver_carrito' %}" class="user-btn user-btn-secondary">🛒 Carrito</a>
+      <span style="color:#3c4043;font-size:0.85rem;font-weight:500;">{{ user.username }}</span>
+     <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="user-btn user-btn-logout">Cerrar sesión</button>
+      </form>
       {% else %}
         <a href="{% url 'login' %}" class="user-btn user-btn-secondary">Iniciar sesión</a>
         <a href="{% url 'registro' %}" class="user-btn user-btn-primary">Registrarse</a>

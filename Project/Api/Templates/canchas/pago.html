@@ -1,0 +1,169 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<h1>💳 Finalizar compra</h1>
+
+<div style="display:grid; grid-template-columns:1fr 400px; gap:24px; align-items:start;">
+
+  <!-- Formulario de pago -->
+  <div class="card">
+    <h2 style="margin-bottom:20px;">Método de pago</h2>
+
+    <form method="post" action="{% url 'procesar_pago' %}" id="form-pago">
+      {% csrf_token %}
+
+      <!-- Selector de método -->
+      <div style="display:flex; gap:12px; margin-bottom:24px;">
+        <label style="flex:1; cursor:pointer;">
+          <input type="radio" name="metodo_pago" value="tarjeta" checked onchange="mostrarMetodo(this.value)" style="display:none;">
+          <div class="metodo-btn activo" id="btn-tarjeta">
+            💳 Tarjeta
+          </div>
+        </label>
+        <label style="flex:1; cursor:pointer;">
+          <input type="radio" name="metodo_pago" value="debito" onchange="mostrarMetodo(this.value)" style="display:none;">
+          <div class="metodo-btn" id="btn-debito">
+            🏦 Débito
+          </div>
+        </label>
+        <label style="flex:1; cursor:pointer;">
+          <input type="radio" name="metodo_pago" value="transferencia" onchange="mostrarMetodo(this.value)" style="display:none;">
+          <div class="metodo-btn" id="btn-transferencia">
+            📲 Transferencia
+          </div>
+        </label>
+      </div>
+
+      <!-- Tarjeta / Débito -->
+      <div id="seccion-tarjeta">
+        <div style="margin-bottom:16px;">
+          <label>Número de tarjeta</label>
+          <input type="text" name="numero_tarjeta" id="numero_tarjeta" maxlength="19"
+                 placeholder="1234 5678 9012 3456" oninput="formatearTarjeta(this)">
+        </div>
+        <div style="margin-bottom:16px;">
+          <label>Nombre del titular</label>
+          <input type="text" name="nombre_tarjeta" placeholder="Como figura en la tarjeta">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div>
+            <label>Vencimiento</label>
+            <input type="text" name="vencimiento" placeholder="MM/AA" maxlength="5"
+                   oninput="formatearVencimiento(this)">
+          </div>
+          <div>
+            <label>CVV</label>
+            <input type="text" name="cvv" placeholder="123" maxlength="4"
+                   oninput="this.value=this.value.replace(/\D/g,'')">
+          </div>
+        </div>
+
+        <!-- Preview de tarjeta -->
+        <div id="card-preview" style="background:linear-gradient(135deg,#1a1a2e,#e94560);
+             border-radius:16px; padding:24px; color:white; margin-bottom:20px; font-family:monospace;">
+          <div style="font-size:0.75em; opacity:0.7; margin-bottom:16px;">WORLD CUP 2026 TICKETS</div>
+          <div id="prev-numero" style="font-size:1.3em; letter-spacing:3px; margin-bottom:20px;">
+            •••• •••• •••• ••••
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.85em;">
+            <div>
+              <div style="opacity:0.7; font-size:0.75em;">TITULAR</div>
+              <div id="prev-nombre">TU NOMBRE</div>
+            </div>
+            <div>
+              <div style="opacity:0.7; font-size:0.75em;">VENCE</div>
+              <div id="prev-vence">MM/AA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transferencia -->
+      <div id="seccion-transferencia" style="display:none;">
+        <div class="card" style="background:#f8f9fa; border:1px dashed #ccc;">
+          <h3 style="margin-bottom:12px;">Datos para transferencia</h3>
+          <p><strong>CBU:</strong> 0000 0000 0000 0000 0000</p>
+          <p><strong>Alias:</strong> WRC26.TICKETS</p>
+          <p><strong>Titular:</strong> FIFA World Cup 2026</p>
+          <p style="margin-top:12px; color:#888; font-size:0.9em;">
+            Una vez realizada la transferencia, tus entradas se confirmarán automáticamente.
+          </p>
+        </div>
+        <input type="hidden" name="numero_tarjeta" value="0000000000000000">
+        <input type="hidden" name="nombre_tarjeta" value="Transferencia">
+        <input type="hidden" name="vencimiento" value="00/00">
+        <input type="hidden" name="cvv" value="000">
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:1em; margin-top:8px;">
+        ✅ Confirmar pago — ${{ total }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Resumen del pedido -->
+  <div>
+    <div class="card">
+      <h2 style="margin-bottom:16px;">Resumen del pedido</h2>
+      {% for item in items %}
+      <div style="padding:12px 0; border-bottom:1px solid #e8eaed;">
+        <p style="font-weight:600; margin-bottom:4px;">{{ item.partido_nombre }}</p>
+        <p style="color:#888; font-size:0.85em;">{{ item.partido_fecha }}</p>
+        <p style="color:#888; font-size:0.85em;">{{ item.categoria|capfirst }} × {{ item.cantidad }}</p>
+        <p style="font-weight:600; margin-top:4px;">${{ item.subtotal }}</p>
+      </div>
+      {% endfor %}
+      <div style="padding-top:16px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:1.1em; font-weight:600;">Total</span>
+        <span style="font-size:1.4em; font-weight:700; color:#1a1a2e;">${{ total }}</span>
+      </div>
+    </div>
+
+    <div class="card" style="background:#e6f4ea; border:none;">
+      <p style="color:#137333; font-size:0.9em;">
+        🔒 Tu compra está protegida. Las entradas se enviarán a <strong>{{ request.user.email }}</strong>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .metodo-btn {
+    text-align:center; padding:12px; border-radius:8px;
+    border:2px solid #e8eaed; font-weight:600; font-size:0.9em;
+    transition:all 0.2s;
+  }
+  .metodo-btn.activo {
+    border-color:#000; background:#000; color:#fff;
+  }
+  .metodo-btn:hover { border-color:#000; }
+</style>
+
+<script>
+function mostrarMetodo(val) {
+  document.querySelectorAll('.metodo-btn').forEach(b => b.classList.remove('activo'));
+  document.getElementById('btn-' + val).classList.add('activo');
+  document.getElementById('seccion-tarjeta').style.display = (val === 'transferencia') ? 'none' : 'block';
+  document.getElementById('seccion-transferencia').style.display = (val === 'transferencia') ? 'block' : 'none';
+}
+
+function formatearTarjeta(input) {
+  let val = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = val.replace(/(.{4})/g, '$1 ').trim();
+  document.getElementById('prev-numero').textContent = input.value || '•••• •••• •••• ••••';
+}
+
+function formatearVencimiento(input) {
+  let val = input.value.replace(/\D/g, '').substring(0, 4);
+  if (val.length >= 2) val = val.substring(0,2) + '/' + val.substring(2);
+  input.value = val;
+  document.getElementById('prev-vence').textContent = val || 'MM/AA';
+}
+
+document.getElementById('nombre_tarjeta') && document.querySelector('[name=nombre_tarjeta]').addEventListener('input', function() {
+  document.getElementById('prev-nombre').textContent = this.value.toUpperCase() || 'TU NOMBRE';
+});
+</script>
+
+{% endblock %}

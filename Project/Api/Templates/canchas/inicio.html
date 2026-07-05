@@ -14,11 +14,7 @@
     <p>Próximos partidos</p>
     <a href="{% url 'lista_partidos' %}" class="btn btn-primary" style="margin-top:10px;">Ver partidos</a>
   </div>
-  <div class="card" style="text-align:center;">
-    <h2 style="font-size:2em;">🏟️</h2>
-    <p>Gestionar canchas</p>
-    <a href="{% url 'lista_canchas' %}" class="btn btn-primary" style="margin-top:10px;">Ver canchas</a>
-  </div>
+  
 </div>
 
 <div class="card">
@@ -41,7 +37,7 @@
           <td>{{ p.equipo_local }}</td>
           <td>{{ p.equipo_visitante }}</td>
           <td>{{ p.get_fase_display }}</td>
-          <td>{{ p.cancha.estadio.nombre }}</td>
+          <td>{{ p.estadio.nombre }}</td>
         </tr>
         {% endfor %}
       </tbody>

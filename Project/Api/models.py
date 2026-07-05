@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from datetime import timedelta
 from django.contrib.auth.models import User
+import uuid
 
 
 class Estadio(models.Model):
@@ -20,39 +20,6 @@ class Estadio(models.Model):
     class Meta:
         verbose_name_plural = "Estadios"
         ordering = ['pais', 'ciudad']
-
-
-class Cancha(models.Model):
-    TIPO_CHOICES = [
-        ('principal', 'Principal'),
-        ('entrenamiento', 'Entrenamiento'),
-        ('calentamiento', 'Calentamiento'),
-    ]
-    SUPERFICIE_CHOICES = [
-        ('cesped_natural', 'Césped Natural'),
-        ('cesped_sintetico', 'Césped Sintético'),
-        ('tierra', 'Tierra'),
-    ]
-    ESTADO_CHOICES = [
-        ('disponible', 'Disponible'),
-        ('ocupada', 'Ocupada'),
-        ('mantenimiento', 'En Mantenimiento'),
-    ]
-
-    estadio = models.ForeignKey(Estadio, on_delete=models.CASCADE, related_name='canchas')
-    numero = models.PositiveIntegerField()
-    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='principal')
-    superficie = models.CharField(max_length=20, choices=SUPERFICIE_CHOICES)
-    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='disponible')
-    largo = models.DecimalField(max_digits=5, decimal_places=2, help_text="En metros")
-    ancho = models.DecimalField(max_digits=5, decimal_places=2, help_text="En metros")
-
-    def __str__(self):
-        return f"Cancha {self.numero} - {self.estadio.nombre}"
-
-    class Meta:
-        unique_together = ('estadio', 'numero')
-        ordering = ['estadio', 'numero']
 
 
 class Equipo(models.Model):
@@ -106,101 +73,95 @@ class Partido(models.Model):
         ('final', 'Final'),
     ]
 
-    cancha = models.ForeignKey(Cancha, on_delete=models.PROTECT, related_name='partidos')
-    equipo_local = models.ForeignKey(Equipo, on_delete=models.PROTECT, related_name='partidos_local')
-    equipo_visitante = models.ForeignKey(Equipo, on_delete=models.PROTECT, related_name='partidos_visitante')
+    estadio = models.ForeignKey(Estadio, on_delete=models.PROTECT, related_name='partidos')
+    equipo_local = models.ForeignKey(Equipo, on_delete=models.PROTECT,
+                                     related_name='partidos_local', null=True, blank=True)
+    equipo_visitante = models.ForeignKey(Equipo, on_delete=models.PROTECT,
+                                         related_name='partidos_visitante', null=True, blank=True)
+    descripcion = models.CharField(max_length=200, blank=True,
+                                   help_text="Ej: Ganador Grupo A vs Segundo Grupo B")
     fecha = models.DateTimeField()
     fase = models.CharField(max_length=20, choices=FASE_CHOICES)
     arbitro = models.CharField(max_length=100, blank=True)
     goles_local = models.PositiveIntegerField(null=True, blank=True)
     goles_visitante = models.PositiveIntegerField(null=True, blank=True)
+    precio_general = models.DecimalField(max_digits=8, decimal_places=2, default=50.00)
+    precio_platea = models.DecimalField(max_digits=8, decimal_places=2, default=150.00)
+    precio_vip = models.DecimalField(max_digits=8, decimal_places=2, default=300.00)
+    entradas_disponibles = models.PositiveIntegerField(default=5000)
 
     def resultado(self):
         if self.goles_local is not None and self.goles_visitante is not None:
             return f"{self.goles_local} - {self.goles_visitante}"
         return "Por jugarse"
 
+    def nombre_partido(self):
+        if self.equipo_local and self.equipo_visitante:
+            return f"{self.equipo_local.nombre} vs {self.equipo_visitante.nombre}"
+        return self.descripcion or "Partido por definir"
+
+    def ya_jugado(self):
+        return self.fecha < timezone.now()
+
+    def dias_restantes(self):
+        if self.ya_jugado():
+            return 0
+        delta = self.fecha - timezone.now()
+        return delta.days
+
     def clean(self):
-        # No se puede programar dos partidos en la misma cancha y hora
         conflicto = Partido.objects.filter(
-            cancha=self.cancha,
+            estadio=self.estadio,
             fecha=self.fecha,
         ).exclude(pk=self.pk)
-
         if conflicto.exists():
-            raise ValidationError('Ya hay un partido programado en esa cancha a esa hora.')
-
-        # Un equipo no puede jugar dos partidos el mismo día
-        if self.fecha:
-            mismo_dia = Partido.objects.filter(
-                fecha__date=self.fecha.date()
-            ).filter(
-                models.Q(equipo_local=self.equipo_local) |
-                models.Q(equipo_visitante=self.equipo_local) |
-                models.Q(equipo_local=self.equipo_visitante) |
-                models.Q(equipo_visitante=self.equipo_visitante)
-            ).exclude(pk=self.pk)
-
-            if mismo_dia.exists():
-                raise ValidationError('Uno de los equipos ya tiene un partido ese día.')
+            raise ValidationError('Ya hay un partido programado en ese estadio a esa hora.')
 
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.equipo_local} vs {self.equipo_visitante} ({self.fecha.strftime('%d/%m/%Y')})"
+        return f"{self.nombre_partido()} ({self.fecha.strftime('%d/%m/%Y')})"
 
     class Meta:
         ordering = ['fecha']
 
 
-class Reserva(models.Model):
+class Entrada(models.Model):
+    CATEGORIA_CHOICES = [
+        ('general', 'General'),
+        ('platea', 'Platea'),
+        ('vip', 'VIP'),
+    ]
     ESTADO_CHOICES = [
         ('pendiente', 'Pendiente'),
         ('confirmada', 'Confirmada'),
         ('cancelada', 'Cancelada'),
     ]
 
-    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE, related_name='reservas')
-    equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, related_name='reservas')
-    fecha_inicio = models.DateTimeField()
-    duracion_horas = models.PositiveIntegerField(default=2)
-    estado = models.CharField(max_length=15, choices=ESTADO_CHOICES, default='pendiente')
-    motivo = models.TextField(blank=True, help_text="Ej: Entrenamiento pre-partido")
-    creada_en = models.DateTimeField(auto_now_add=True)
-
-    def clean(self):
-        # No se puede reservar en el pasado
-        if self.fecha_inicio and self.fecha_inicio < timezone.now():
-            raise ValidationError('No podés crear una reserva en una fecha pasada.')
-
-        # No se puede reservar una cancha ya ocupada en ese horario
-        if self.fecha_inicio and self.duracion_horas:
-            fecha_fin = self.fecha_inicio + timedelta(hours=self.duracion_horas)
-
-            conflictos = Reserva.objects.filter(
-                cancha=self.cancha,
-                estado='confirmada',
-                fecha_inicio__lt=fecha_fin,
-            ).exclude(pk=self.pk)
-
-            for r in conflictos:
-                r_fin = r.fecha_inicio + timedelta(hours=r.duracion_horas)
-                if self.fecha_inicio < r_fin:
-                    raise ValidationError(
-                        f'La cancha ya está reservada de '
-                        f'{r.fecha_inicio.strftime("%d/%m/%Y %H:%M")} '
-                        f'hasta {r_fin.strftime("%d/%m/%Y %H:%M")}.'
-                    )
+    partido = models.ForeignKey(Partido, on_delete=models.PROTECT, related_name='entradas')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entradas')
+    categoria = models.CharField(max_length=10, choices=CATEGORIA_CHOICES, default='general')
+    cantidad = models.PositiveIntegerField(default=1)
+    precio_unitario = models.DecimalField(max_digits=8, decimal_places=2)
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='confirmada')
+    fecha_compra = models.DateTimeField(auto_now_add=True)
+    codigo = models.CharField(max_length=20, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.clean()
+        self.precio_total = self.precio_unitario * self.cantidad
+        if not self.codigo:
+            self.codigo = f"WRC26-{str(uuid.uuid4())[:8].upper()}"
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Reserva: {self.equipo} en {self.cancha} - {self.fecha_inicio.strftime('%d/%m/%Y %H:%M')}"
-    
+        return f"{self.codigo} - {self.usuario.username} - {self.partido}"
+
+    class Meta:
+        ordering = ['-fecha_compra']
+        verbose_name_plural = "Entradas"
 
 
 class Perfil(models.Model):
@@ -215,7 +176,5 @@ class Perfil(models.Model):
     def __str__(self):
         return f"{self.usuario.username} - {self.get_rol_display()}"
 
-
-
-class Meta:
-    verbose_name_plural = "Perfiles"
+    class Meta:
+        verbose_name_plural = "Perfiles"

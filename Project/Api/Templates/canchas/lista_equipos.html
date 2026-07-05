@@ -3,9 +3,9 @@
 
 <div style="display:flex; justify-content:space-between; align-items:center;">
   <h1>Equipos</h1>
-  {% if request.user.perfil.rol == 'admin' %}
-    <a href="{% url 'crear_equipo' %}" class="btn btn-primary">+ Nuevo equipo</a>
-  {% endif %}
+ {% if request.user.perfil.rol == 'admin' %}
+  <a href="{% url 'crear_equipo' %}" class="btn btn-primary">+ Nuevo equipo</a>
+{% endif %}
 </div>
 
 <table>
@@ -28,10 +28,10 @@
       <td>{{ e.grupo }}</td>
       <td>{{ e.entrenador }}</td>
       <td>
-        {% if request.user.perfil.rol == 'admin' %}
-          <a href="{% url 'editar_equipo' e.pk %}" class="btn btn-warning">Editar</a>
-          <a href="{% url 'eliminar_equipo' e.pk %}" class="btn btn-danger">Eliminar</a>
-        {% endif %}
+  {% if request.user.perfil.rol == 'admin' %}
+    <a href="{% url 'editar_equipo' e.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'eliminar_equipo' e.pk %}" class="btn btn-danger">Eliminar</a>
+  {% endif %}
       </td>
     </tr>
     {% empty %}

@@ -1,0 +1,58 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<h1>🛒 Mi Carrito</h1>
+
+{% if items %}
+  <table>
+    <thead>
+      <tr>
+        <th>Partido</th>
+        <th>Fecha</th>
+        <th>Categoría</th>
+        <th>Cantidad</th>
+        <th>Precio unit.</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td><strong>{{ item.partido_nombre }}</strong></td>
+        <td>{{ item.partido_fecha }}</td>
+        <td>{{ item.categoria|capfirst }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>${{ item.precio_unitario }}</td>
+        <td><strong>${{ item.subtotal }}</strong></td>
+        <td>
+          <a href="{% url 'eliminar_carrito' item.key %}" class="btn btn-danger">Quitar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top:24px; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Total: <span style="color:#1a1a2e;">${{ total }}</span></h2>
+      <p style="color:#888; font-size:0.9em; margin-top:4px;">{{ items|length }} partido(s) en el carrito</p>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Seguir comprando</a>
+      <a href="{% url 'confirmar_compra' %}" class="btn btn-primary">
+        💳 Ir a pagar
+      </a>
+    </div>
+  </div>
+
+{% else %}
+  <div class="card" style="text-align:center; padding:48px;">
+    <p style="font-size:3em; margin-bottom:16px;">🛒</p>
+    <h2 style="margin-bottom:8px;">Tu carrito está vacío</h2>
+    <p style="color:#888; margin-bottom:24px;">Explorá los partidos y agregá entradas</p>
+    <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
+  </div>
+{% endif %}
+
+{% endblock %}

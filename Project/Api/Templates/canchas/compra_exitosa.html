@@ -1,0 +1,38 @@
+{% extends 'canchas/base.html' %}
+{% block content %}
+
+<div style="text-align:center; padding:40px 0;">
+  <div style="font-size:4em; margin-bottom:16px;">🎉</div>
+  <h1 style="margin-bottom:8px;">¡Compra realizada con éxito!</h1>
+  <p style="color:#888; margin-bottom:32px;">Tus entradas fueron confirmadas</p>
+</div>
+
+{% for entrada in entradas %}
+<div class="card" style="max-width:600px; margin:0 auto 16px; border-left:4px solid #e94560;">
+  <div style="display:flex; justify-content:space-between; align-items:start;">
+    <div>
+      <p style="font-size:0.75em; color:#e94560; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">
+        🎟️ Entrada confirmada
+      </p>
+      <h2 style="margin-bottom:8px;">{{ entrada.partido.nombre_partido }}</h2>
+      <p>📅 {{ entrada.partido.fecha|date:"d/m/Y H:i" }}</p>
+      <p>🏟️ {{ entrada.partido.estadio.nombre }} — {{ entrada.partido.estadio.ciudad }}</p>
+      <p>🪑 {{ entrada.get_categoria_display }} × {{ entrada.cantidad }}</p>
+      <p>💵 Total: <strong>${{ entrada.precio_total }}</strong></p>
+    </div>
+    <div style="text-align:center; background:#f8f9fa; padding:16px; border-radius:8px; min-width:120px;">
+      <p style="font-size:0.7em; color:#888; margin-bottom:4px;">CÓDIGO</p>
+      <p style="font-family:monospace; font-weight:700; font-size:1.1em; color:#1a1a2e;">
+        {{ entrada.codigo }}
+      </p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div style="text-align:center; margin-top:32px; display:flex; gap:12px; justify-content:center;">
+  <a href="{% url 'mis_entradas' %}" class="btn btn-primary">🎟️ Ver mis entradas</a>
+  <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Ver más partidos</a>
+</div>
+
+{% endblock %}
