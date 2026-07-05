@@ -1,33 +1,33 @@
-# ⚽ WRC26 — Sistema de Gestión de Canchas
-### FIFA World Cup 2026
- 
+# ⚽ WRC26 — Sistema de Gestión de Entradas
+### FIFA World Cup 2026 — Canada · Mexico · USA
+
 ---
- 
+
 ## 👥 Integrantes
- 
+
 | Nombre | Área |
 |--------|------|
-| [Gustavo Estevez] | Backend |
-| [Martin Clemente] | Frontend |
-| [Thiago Hernandez] | Documentación y Marketing |
- 
+| Gustavo Estevez | Backend |
+| Martin Clemente | Frontend |
+| Thiago Hernandez | Documentación y Marketing |
+
 ---
- 
-## 🛠️ Lenguajes y Tecnologías
- 
+
+## 🛠️ Tecnologías utilizadas
+
 | Tecnología | Uso |
 |-----------|-----|
 | Python 3.14 | Lenguaje backend |
 | Django 6.0 | Framework web |
 | SQLite | Base de datos |
 | HTML5 / CSS3 | Frontend |
-| JavaScript | Interactividad |
+| JavaScript | Interactividad y validaciones |
 | Leaflet.js | Mapas y geolocalización |
- 
+
 ---
- 
-## 📁 Estructura de Carpetas
- 
+
+## 📁 Estructura de carpetas
+
 ```
 WRC26/
 └── Project/
@@ -38,14 +38,16 @@ WRC26/
     │   ├── urls.py
     │   └── wsgi.py
     └── Api/
-        ├── models.py        ← Base de datos
-        ├── views.py         ← Lógica de negocio
-        ├── urls.py          ← Rutas
-        ├── forms.py         ← Formularios
-        ├── admin.py         ← Panel de administración
-        ├── tests.py         ← Tests automáticos
+        ├── models.py          ← Base de datos
+        ├── views.py           ← Lógica de negocio
+        ├── urls.py            ← Rutas
+        ├── forms.py           ← Formularios
+        ├── admin.py           ← Panel de administración
+        ├── tests.py           ← Tests automáticos
         ├── fixtures/
-        │   └── equipos.json ← Carga inicial de datos
+        │   ├── equipos.json   ← 48 equipos del mundial
+        │   ├── estadios.json  ← 16 estadios sede
+        │   └── partidos.json  ← 40 partidos del torneo
         └── Templates/
             └── canchas/
                 ├── base.html
@@ -54,81 +56,95 @@ WRC26/
                 ├── inicio.html
                 ├── lista_estadios.html
                 ├── form_estadio.html
-                ├── lista_canchas.html
-                ├── detalle_cancha.html
-                ├── form_cancha.html
                 ├── lista_partidos.html
+                ├── detalle_partido.html
                 ├── form_partido.html
-                ├── lista_reservas.html
-                ├── form_reserva.html
                 ├── lista_equipos.html
                 ├── form_equipo.html
                 ├── mapa_estadios.html
-                └── confirmar_eliminar.html
+                ├── carrito.html
+                ├── pago.html
+                ├── compra_exitosa.html
+                ├── mis_entradas.html
+                ├── confirmar_eliminar.html
+                ├── 403.html
+                └── index.html
 ```
- 
+
 ---
- 
-## 🚀 Ejecutar el Proyecto
- 
+
+## 🚀 Cómo ejecutar el proyecto
+
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/[tu-usuario]/WRC26.git
+git clone https://github.com/GustavoEstevez/WRC26.git
 cd WRC26/Project
 ```
- 
+
 ### 2. Instalar dependencias
 ```bash
 pip install django
 ```
- 
+
 ### 3. Aplicar migraciones
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
- 
-### 4. Cargar datos iniciales (48 equipos del mundial)
+
+### 4. Cargar datos iniciales
 ```bash
 python manage.py loaddata equipos.json
+python manage.py loaddata estadios.json
+python manage.py loaddata partidos.json
 ```
- 
-### 5. Crear superusuario
+
+### 5. Crear superusuario (opcional)
 ```bash
 python manage.py createsuperuser
 ```
- 
+
 ### 6. Ejecutar el servidor
 ```bash
 python manage.py runserver
 ```
- 
+
 ### 7. Abrir en el navegador
 ```
 http://127.0.0.1:8000/
 ```
- 
+
 ---
- 
-## 🔐 Datos de Acceso
- 
-| Tipo | Usuario | Contraseña |
-|------|---------|------------|
-| Administrador | admin | [la que creaste] |
-| Operador | [usuario] | [contraseña] |
- 
-> Para asignar rol de Administrador: entrar al panel `/admin/` → Perfiles → cambiar rol.
- 
+
+## 🔐 Datos de acceso
+
+| Rol | Usuario | Contraseña |
+|-----|---------|------------|
+| Administrador | admin | admin |
+| Operador | usuario | usuario |
+
+> Para cambiar el rol de un usuario: entrar al panel `/admin/` → Perfiles → cambiar rol a Administrador.
+
 ---
- 
+
 ## ✅ Funcionalidades
- 
-- Gestión de estadios con coordenadas geográficas
-- Gestión de canchas por estadio
-- Gestión de los 48 equipos del Mundial 2026
-- Programación de partidos por fase
-- Sistema de reservas con validación de horarios
-- Mapa interactivo con ubicación de estadios
-- Login / Logout / Registro de usuarios
-- Control de permisos: Administrador y Operador
- 
+
+**Gestión (solo Administrador)**
+- Alta, baja y modificación de estadios
+- Alta, baja y modificación de equipos
+- Alta, baja y modificación de partidos
+
+**Usuarios (Administrador y Operador)**
+- Registro e inicio de sesión
+- Ver estadios con mapa interactivo
+- Ver equipos participantes del mundial
+- Ver partidos por fase
+- Comprar entradas con carrito de compras
+- Múltiples métodos de pago (tarjeta, débito, transferencia)
+- Ver mis entradas con cuenta regresiva
+
+---
+
+## 🗺️ Geolocalización
+
+El sistema incorpora un mapa interactivo con los 16 estadios sede del mundial, implementado con Leaflet.js y OpenStreetMap. Cada estadio muestra su nombre, ciudad y capacidad al hacer clic en el marcador.
