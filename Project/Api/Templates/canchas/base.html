@@ -9,142 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', 'Noto Sans', 'Segoe UI', Arial, sans-serif;
-      background: #f4f5f7; color: #1a1a2e; padding-top: 80px;
-    }
-
-    .header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: #fff;
-      border-bottom: 1px solid #e8eaed;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    }
-    .header-inner {
-      max-width: 1600px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 24px; height: 80px;
-    }
-    .header-brand {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none; width: 260px; flex-shrink: 0;
-    }
-    .wc-logo { height: 52px; width: auto; display: block; }
-    .header-brand { transition: opacity 0.2s ease; }
-    .header-brand:hover { opacity: 0.7; }
-    .brand-text { line-height: 1.2; }
-    .brand-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem; font-weight: 700; color: #000;
-      letter-spacing: 0.5px; text-transform: uppercase;
-    }
-    .brand-sub {
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.6rem; font-weight: 500; color: #6b7280;
-      letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    .header-divider {
-      width: 1px; height: 32px; background: #e0e3e7;
-      margin: 0 16px; flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex; align-items: center; justify-content: center; gap: 2px;
-      list-style: none; flex: 1;
-    }
-    .nav-links a {
-      color: #000; text-decoration: none;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.85rem; font-weight: 600;
-      padding: 10px 16px; white-space: nowrap;
-      position: relative; display: inline-flex; align-items: center; gap: 6px;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute;
-      bottom: 4px; left: 16px; right: 16px;
-      height: 1.5px; background: #000;
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.25s ease;
-    }
-    .nav-links a:hover { color: #000; transform: translateY(-2px); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-
-    .header-right {
-      display: flex; align-items: center; justify-content: flex-end; gap: 12px;
-      width: 260px; flex-shrink: 0;
-    }
-    .fifa-logo { height: 34px; width: auto; display: block; }
-    .user-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 18px; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .user-btn-primary { background: #000; color: #fff; border: 1.5px solid transparent; }
-    .user-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2,15,42,0.2); }
-    .user-btn-secondary { background: transparent; color: #000; border: 1.5px solid #d2d5d9; }
-    .user-btn-secondary:hover { border-color: #000; background: rgba(2,15,42,0.04); transform: translateY(-1px); }
-    .user-btn-logout {
-      color: #d93025; background: none; font-weight: 500;
-      padding: 8px 12px; border-radius: 6px;
-    }
-    .user-btn-logout:hover { background: #fce8e6; }
-
-    .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-    h1, h2 { margin-bottom: 20px; color: #1a1a2e; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-    th { background: #000; color: #fff; padding: 14px 12px; text-align: left; font-weight: 600; font-size: 0.85rem; }
-    td { padding: 12px; border-bottom: 1px solid #e8eaed; }
-    tr:hover { background: #f8f9fa; }
-    .btn { display: inline-block; padding: 8px 16px; border-radius: 8px; text-decoration: none;
-           font-size: 0.85rem; border: none; cursor: pointer; font-weight: 500; transition: all 0.15s; }
-    .btn-primary   { background: #000; color: #fff; }
-    .btn-primary:hover { background: #1a2a4a; }
-    .btn-warning   { background: #f0a500; color: #fff; }
-    .btn-danger    { background: #d93025; color: #fff; }
-    .btn-secondary { background: #e8eaed; color: #3c4043; }
-    .btn-secondary:hover { background: #d2d5d9; }
-    form p { margin-bottom: 14px; }
-    form label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.85rem; color: #3c4043; }
-    form input, form select, form textarea {
-      width: 100%; padding: 10px 12px; border: 1px solid #d2d5d9;
-      border-radius: 8px; font-size: 0.9rem; font-family: inherit;
-      transition: border-color 0.15s; background: #fff;
-    }
-    form input:focus, form select:focus, form textarea:focus {
-      outline: none; border-color: #000; box-shadow: 0 0 0 3px rgba(2,15,42,0.1);
-    }
-    .messages { margin-bottom: 24px; }
-    .messages li { list-style: none; padding: 12px 16px; border-radius: 8px;
-                   background: #e6f4ea; color: #137333; margin-bottom: 8px;
-                   font-size: 0.9rem; font-weight: 500; }
-    .card { background: #fff; border-radius: 12px; padding: 28px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 24px;
-            border: 1px solid #e8eaed; }
-
-    @media (max-width: 768px) {
-      body { padding-top: 60px; }
-      .header-inner { padding: 0 16px; height: 64px; }
-      body { padding-top: 64px; }
-      .header-brand { width: auto; }
-      .header-right { width: auto; }
-      .wc-logo { height: 30px; }
-      .brand-title { font-size: 0.8rem; }
-      .brand-sub { font-size: 0.5rem; }
-      .header-divider { margin: 0 8px; }
-      .nav-links { gap: 0; overflow-x: auto; flex: initial; }
-      .nav-links::-webkit-scrollbar { display: none; }
-      .nav-links a { font-size: 0.85rem; padding: 8px 12px; }
-      .fifa-logo { height: 24px; }
-      .user-btn { padding: 6px 14px; font-size: 0.78rem; }
-      .container { margin: 20px auto; padding: 0 12px; }
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'Api/css/style.css' %}">
 </head>
 <body>
 
@@ -162,8 +27,6 @@
       </div>
     </a>
 
-    <div class="header-divider"></div>
-
     <nav class="nav-links">
       <a href="{% url 'inicio' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a4 4 0 014-4h10a4 4 0 014 4v2"/></svg> Inicio</a>
       <a href="{% url 'lista_estadios' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/><path d="M6 14.5v3.5"/><path d="M18 14.5v3.5"/></svg> Estadios</a>
@@ -173,28 +36,32 @@
     </nav>
 
     <div class="header-right">
+      {% if user.is_authenticated %}
+      <div class="header-right-group">
+        <a href="{% url 'mis_entradas' %}" class="user-btn user-btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg> Mis Entradas</a>
+        <a href="{% url 'ver_carrito' %}" class="user-btn user-btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Carrito</a>
+        <span class="user-name"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a4 4 0 014-4h10a4 4 0 014 4v2"/></svg> {{ user.username }}</span>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="user-btn user-btn-logout"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar sesión</button>
+        </form>
+      </div>
+      {% else %}
+      <div class="header-right-group">
+        <a href="{% url 'login' %}" class="user-btn user-btn-secondary">Iniciar sesión</a>
+        <a href="{% url 'registro' %}" class="user-btn user-btn-primary">Registrarse</a>
+      </div>
+      {% endif %}
       <img src="{% static 'Api/images/FIFABlackLogo.png' %}" alt="FIFA" class="fifa-logo"
            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <svg viewBox="0 0 1000 328" class="fifa-logo" style="display:none" xmlns="http://www.w3.org/2000/svg">
         <path d="m283 0h104v327h-104m-283-327h253l-26 72h-123v66h99l-26 72h-73v118h-104m456-328h253l-26 72h-123v66h99l-26 72h-73v118h-104m319-328-119 328h101l13-43h116l13 43h101l-119-328m-53 87 39 133h-78" fill="#000"/>
       </svg>
-      {% if user.is_authenticated %}
-      <a href="{% url 'mis_entradas' %}" class="user-btn user-btn-secondary">🎟️ Mis Entradas</a>
-     <a href="{% url 'ver_carrito' %}" class="user-btn user-btn-secondary">🛒 Carrito</a>
-      <span style="color:#3c4043;font-size:0.85rem;font-weight:500;">{{ user.username }}</span>
-     <form method="post" action="{% url 'logout' %}" style="display:inline;">
-      {% csrf_token %}
-      <button type="submit" class="user-btn user-btn-logout">Cerrar sesión</button>
-      </form>
-      {% else %}
-        <a href="{% url 'login' %}" class="user-btn user-btn-secondary">Iniciar sesión</a>
-        <a href="{% url 'registro' %}" class="user-btn user-btn-primary">Registrarse</a>
-      {% endif %}
     </div>
   </div>
 </header>
 
-<div class="container">
+<div class="container{% block container_class %}{% endblock %}">
   {% if messages %}
     <ul class="messages">
       {% for msg in messages %}
