@@ -1,9 +1,13 @@
 {% extends 'canchas/base.html' %}
 {% block content %}
 
-<div class="card" style="max-width:500px; margin:60px auto; text-align:center;">
+<style>
+.error-card { max-width:500px; margin:60px auto; }
+</style>
+
+<div class="card text-center error-card">
   <h2>🚫 Acceso denegado</h2>
-  <p style="margin:20px 0; color:#555;">
+  <p class="mt-20 mb-20 text-muted">
     No tenés permisos para realizar esta acción.
   </p>
   <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>

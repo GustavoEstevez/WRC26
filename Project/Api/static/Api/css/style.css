@@ -108,6 +108,7 @@ tr:hover { background: #f8f9fa; }
 .btn-danger    { background: #d93025; color: #fff; }
 .btn-secondary { background: #e8eaed; color: #3c4043; }
 .btn-secondary:hover { background: #d2d5d9; }
+.btn-sm { font-size: 0.82rem; padding: 6px 14px; }
 form p { margin-bottom: 14px; }
 form label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.85rem; color: #3c4043; }
 form input, form select, form textarea {

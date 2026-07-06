@@ -1,0 +1,89 @@
+/* ─── SPACING ──────────────────────────── */
+.mb-4  { margin-bottom: 4px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-28 { margin-bottom: 28px; }
+.mb-32 { margin-bottom: 32px; }
+.mt-4  { margin-top: 4px; }
+.mt-8  { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+.p-0  { padding: 0; }
+.p-4  { padding: 4px; }
+.p-8  { padding: 8px; }
+.p-12 { padding: 12px; }
+.p-16 { padding: 16px; }
+.p-20 { padding: 20px; }
+.p-24 { padding: 24px; }
+
+/* ─── FLEX ─────────────────────────────── */
+.flex          { display: flex; }
+.flex-col      { flex-direction: column; }
+.flex-wrap     { flex-wrap: wrap; }
+.flex-1        { flex: 1; }
+.items-center  { align-items: center; }
+.items-start   { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.justify-end   { justify-content: flex-end; }
+.gap-4  { gap: 4px; }
+.gap-6  { gap: 6px; }
+.gap-8  { gap: 8px; }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+.gap-24 { gap: 24px; }
+
+/* ─── GRID ─────────────────────────────── */
+.grid { display: grid; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+/* ─── TEXT ─────────────────────────────── */
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+.text-sm     { font-size: 0.85em; }
+.text-xs     { font-size: 0.75em; }
+.text-lg     { font-size: 1.1em; }
+.text-bold   { font-weight: 600; }
+.text-bolder { font-weight: 700; }
+.text-muted  { color: #888; }
+.text-danger { color: #d93025; }
+.text-black  { color: #000; }
+.text-white  { color: #fff; }
+
+/* ─── WIDTH ─────────────────────────────── */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+
+/* ─── BORDER ────────────────────────────── */
+.border-bottom { border-bottom: 1px solid #e8eaed; }
+.border-none   { border: none; }
+.rounded-sm { border-radius: 4px; }
+.rounded    { border-radius: 8px; }
+.rounded-lg { border-radius: 10px; }
+
+/* ─── BACKGROUND ────────────────────────── */
+.bg-white    { background: #fff; }
+.bg-gray     { background: #f8f9fa; }
+.bg-dark     { background: #1a1a2e; }
+
+/* ─── MISC ──────────────────────────────── */
+.block    { display: block; }
+.hidden   { display: none; }
+.inline   { display: inline; }
+.inline-form { display: inline; }
+.inline-flex { display: inline-flex; }
+.inline-block { display: inline-block; }
+.relative { position: relative; }
+.self-start { align-self: flex-start; }
+.overflow-hidden { overflow: hidden; }
+.cursor-pointer { cursor: pointer; }
+.no-underline { text-decoration: none; }
+.truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

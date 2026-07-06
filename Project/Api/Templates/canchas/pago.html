@@ -1,33 +1,36 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'Api/css/pago.css' %}">
 
 <h1>💳 Finalizar compra</h1>
 
-<div style="display:grid; grid-template-columns:1fr 400px; gap:24px; align-items:start;">
+<div class="pago-grid">
 
   <!-- Formulario de pago -->
   <div class="card">
-    <h2 style="margin-bottom:20px;">Método de pago</h2>
+    <h2 class="mb-20">Método de pago</h2>
 
     <form method="post" action="{% url 'procesar_pago' %}" id="form-pago">
       {% csrf_token %}
 
       <!-- Selector de método -->
-      <div style="display:flex; gap:12px; margin-bottom:24px;">
-        <label style="flex:1; cursor:pointer;">
-          <input type="radio" name="metodo_pago" value="tarjeta" checked onchange="mostrarMetodo(this.value)" style="display:none;">
+      <div class="pago-metodos">
+        <label>
+          <input type="radio" name="metodo_pago" value="tarjeta" checked onchange="mostrarMetodo(this.value)">
           <div class="metodo-btn activo" id="btn-tarjeta">
             💳 Tarjeta
           </div>
         </label>
-        <label style="flex:1; cursor:pointer;">
-          <input type="radio" name="metodo_pago" value="debito" onchange="mostrarMetodo(this.value)" style="display:none;">
+        <label>
+          <input type="radio" name="metodo_pago" value="debito" onchange="mostrarMetodo(this.value)">
           <div class="metodo-btn" id="btn-debito">
             🏦 Débito
           </div>
         </label>
-        <label style="flex:1; cursor:pointer;">
-          <input type="radio" name="metodo_pago" value="transferencia" onchange="mostrarMetodo(this.value)" style="display:none;">
+        <label>
+          <input type="radio" name="metodo_pago" value="transferencia" onchange="mostrarMetodo(this.value)">
           <div class="metodo-btn" id="btn-transferencia">
             📲 Transferencia
           </div>
@@ -36,16 +39,16 @@
 
       <!-- Tarjeta / Débito -->
       <div id="seccion-tarjeta">
-        <div style="margin-bottom:16px;">
+        <div class="pago-campo">
           <label>Número de tarjeta</label>
           <input type="text" name="numero_tarjeta" id="numero_tarjeta" maxlength="19"
                  placeholder="1234 5678 9012 3456" oninput="formatearTarjeta(this)">
         </div>
-        <div style="margin-bottom:16px;">
+        <div class="pago-campo">
           <label>Nombre del titular</label>
           <input type="text" name="nombre_tarjeta" placeholder="Como figura en la tarjeta">
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div class="pago-fila">
           <div>
             <label>Vencimiento</label>
             <input type="text" name="vencimiento" placeholder="MM/AA" maxlength="5"
@@ -59,19 +62,18 @@
         </div>
 
         <!-- Preview de tarjeta -->
-        <div id="card-preview" style="background:linear-gradient(135deg,#1a1a2e,#e94560);
-             border-radius:16px; padding:24px; color:white; margin-bottom:20px; font-family:monospace;">
-          <div style="font-size:0.75em; opacity:0.7; margin-bottom:16px;">WORLD CUP 2026 TICKETS</div>
-          <div id="prev-numero" style="font-size:1.3em; letter-spacing:3px; margin-bottom:20px;">
+        <div id="card-preview" class="card-preview">
+          <div class="card-preview-header">WORLD CUP 2026 TICKETS</div>
+          <div id="prev-numero" class="card-preview-numero">
             •••• •••• •••• ••••
           </div>
-          <div style="display:flex; justify-content:space-between; font-size:0.85em;">
+          <div class="card-preview-footer">
             <div>
-              <div style="opacity:0.7; font-size:0.75em;">TITULAR</div>
+              <div class="card-preview-label">TITULAR</div>
               <div id="prev-nombre">TU NOMBRE</div>
             </div>
             <div>
-              <div style="opacity:0.7; font-size:0.75em;">VENCE</div>
+              <div class="card-preview-label">VENCE</div>
               <div id="prev-vence">MM/AA</div>
             </div>
           </div>
@@ -79,13 +81,13 @@
       </div>
 
       <!-- Transferencia -->
-      <div id="seccion-transferencia" style="display:none;">
-        <div class="card" style="background:#f8f9fa; border:1px dashed #ccc;">
-          <h3 style="margin-bottom:12px;">Datos para transferencia</h3>
+      <div id="seccion-transferencia" class="hidden">
+        <div class="card transferencia-box">
+          <h3>Datos para transferencia</h3>
           <p><strong>CBU:</strong> 0000 0000 0000 0000 0000</p>
           <p><strong>Alias:</strong> WRC26.TICKETS</p>
           <p><strong>Titular:</strong> FIFA World Cup 2026</p>
-          <p style="margin-top:12px; color:#888; font-size:0.9em;">
+          <p class="transferencia-nota">
             Una vez realizada la transferencia, tus entradas se confirmarán automáticamente.
           </p>
         </div>
@@ -95,7 +97,7 @@
         <input type="hidden" name="cvv" value="000">
       </div>
 
-      <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:1em; margin-top:8px;">
+      <button type="submit" class="btn btn-primary btn-pago">
         ✅ Confirmar pago — ${{ total }}
       </button>
     </form>
@@ -104,41 +106,29 @@
   <!-- Resumen del pedido -->
   <div>
     <div class="card">
-      <h2 style="margin-bottom:16px;">Resumen del pedido</h2>
+      <h2 class="mb-16">Resumen del pedido</h2>
       {% for item in items %}
-      <div style="padding:12px 0; border-bottom:1px solid #e8eaed;">
-        <p style="font-weight:600; margin-bottom:4px;">{{ item.partido_nombre }}</p>
-        <p style="color:#888; font-size:0.85em;">{{ item.partido_fecha }}</p>
-        <p style="color:#888; font-size:0.85em;">{{ item.categoria|capfirst }} × {{ item.cantidad }}</p>
-        <p style="font-weight:600; margin-top:4px;">${{ item.subtotal }}</p>
+      <div class="resumen-item">
+        <p class="resumen-item-nombre">{{ item.partido_nombre }}</p>
+        <p class="resumen-item-detalle">{{ item.partido_fecha }}</p>
+        <p class="resumen-item-detalle">{{ item.categoria|capfirst }} × {{ item.cantidad }}</p>
+        <p class="resumen-item-subtotal">${{ item.subtotal }}</p>
       </div>
       {% endfor %}
-      <div style="padding-top:16px; display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:1.1em; font-weight:600;">Total</span>
-        <span style="font-size:1.4em; font-weight:700; color:#1a1a2e;">${{ total }}</span>
+      <div class="resumen-total">
+        <span class="resumen-total-label">Total</span>
+        <span class="resumen-total-monto">${{ total }}</span>
       </div>
     </div>
 
-    <div class="card" style="background:#e6f4ea; border:none;">
-      <p style="color:#137333; font-size:0.9em;">
+    <div class="card seguro-box">
+      <p class="seguro-texto">
         🔒 Tu compra está protegida. Las entradas se enviarán a <strong>{{ request.user.email }}</strong>
       </p>
     </div>
   </div>
 
 </div>
-
-<style>
-  .metodo-btn {
-    text-align:center; padding:12px; border-radius:8px;
-    border:2px solid #e8eaed; font-weight:600; font-size:0.9em;
-    transition:all 0.2s;
-  }
-  .metodo-btn.activo {
-    border-color:#000; background:#000; color:#fff;
-  }
-  .metodo-btn:hover { border-color:#000; }
-</style>
 
 <script>
 function mostrarMetodo(val) {

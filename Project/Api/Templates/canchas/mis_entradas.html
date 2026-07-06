@@ -1,34 +1,44 @@
 {% extends 'canchas/base.html' %}
 {% block content %}
 
+<style>
+.proximo-badge { color:#e94560; font-size:0.85em; text-transform:uppercase; letter-spacing:1px; }
+.monospace { font-family:monospace; }
+.proximo-countdown { background:#e94560; padding:10px 20px; }
+.proximo-countdown-text { font-size:1.4em; }
+.entrada-badge { background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:20px; }
+.empty-state { padding:48px; }
+.empty-state-icon { font-size:3em; }
+</style>
+
 <h1>🎟️ Mis Entradas</h1>
 
 {% if proximo %}
-  <div class="card" style="background:#1a1a2e; color:white; margin-bottom:24px;">
-    <p style="color:#e94560; font-weight:bold; font-size:0.85em; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+  <div class="card bg-dark text-white mb-24">
+    <p class="proximo-badge text-bold mb-8">
       ⏳ Tu próximo partido
     </p>
-    <h2 style="color:white; margin-bottom:12px;">{{ proximo.partido.nombre_partido }}</h2>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+    <h2 class="text-white mb-12">{{ proximo.partido.nombre_partido }}</h2>
+    <div class="grid grid-2 gap-16 mb-16">
       <div>
-        <p style="color:#aaa; font-size:0.85em;">Fecha</p>
-        <p style="color:white; font-weight:600;">{{ proximo.partido.fecha|date:"d/m/Y H:i" }}</p>
+        <p class="text-muted text-sm">Fecha</p>
+        <p class="text-white text-bold">{{ proximo.partido.fecha|date:"d/m/Y H:i" }}</p>
       </div>
       <div>
-        <p style="color:#aaa; font-size:0.85em;">Estadio</p>
-        <p style="color:white; font-weight:600;">{{ proximo.partido.estadio.nombre }}</p>
+        <p class="text-muted text-sm">Estadio</p>
+        <p class="text-white text-bold">{{ proximo.partido.estadio.nombre }}</p>
       </div>
       <div>
-        <p style="color:#aaa; font-size:0.85em;">Categoría</p>
-        <p style="color:white; font-weight:600;">{{ proximo.get_categoria_display }}</p>
+        <p class="text-muted text-sm">Categoría</p>
+        <p class="text-white text-bold">{{ proximo.get_categoria_display }}</p>
       </div>
       <div>
-        <p style="color:#aaa; font-size:0.85em;">Código</p>
-        <p style="color:white; font-weight:600; font-family:monospace;">{{ proximo.codigo }}</p>
+        <p class="text-muted text-sm">Código</p>
+        <p class="text-white text-bold monospace">{{ proximo.codigo }}</p>
       </div>
     </div>
-    <div style="background:#e94560; display:inline-block; padding:10px 20px; border-radius:8px;">
-      <span style="font-size:1.4em; font-weight:bold;">
+    <div class="proximo-countdown inline-block rounded">
+      <span class="proximo-countdown-text text-bold">
         ⏳ Faltan {{ proximo.partido.dias_restantes }} días
       </span>
     </div>
@@ -36,8 +46,8 @@
 {% endif %}
 
 {% if proximas %}
-  <h2 style="margin-bottom:16px;">Próximos partidos</h2>
-  <table style="margin-bottom:32px;">
+  <h2 class="mb-16">Próximos partidos</h2>
+  <table class="mb-32">
     <thead>
       <tr>
         <th>Código</th>
@@ -53,7 +63,7 @@
     <tbody>
       {% for e in proximas %}
       <tr>
-        <td><strong style="font-family:monospace;">{{ e.codigo }}</strong></td>
+        <td><strong class="monospace">{{ e.codigo }}</strong></td>
         <td>{{ e.partido.nombre_partido }}</td>
         <td>{{ e.partido.fecha|date:"d/m/Y H:i" }}</td>
         <td>{{ e.partido.estadio.nombre }}</td>
@@ -61,7 +71,7 @@
         <td>{{ e.cantidad }}</td>
         <td>${{ e.precio_total }}</td>
         <td>
-          <span style="background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:20px; font-size:0.85em; font-weight:600;">
+          <span class="entrada-badge text-sm text-bold">
             ⏳ {{ e.partido.dias_restantes }} días
           </span>
         </td>
@@ -72,7 +82,7 @@
 {% endif %}
 
 {% if pasadas %}
-  <h2 style="margin-bottom:16px;">Partidos jugados</h2>
+  <h2 class="mb-16">Partidos jugados</h2>
   <table>
     <thead>
       <tr>
@@ -86,8 +96,8 @@
     </thead>
     <tbody>
       {% for e in pasadas %}
-      <tr style="color:#888;">
-        <td style="font-family:monospace;">{{ e.codigo }}</td>
+      <tr class="text-muted">
+        <td class="monospace">{{ e.codigo }}</td>
         <td>{{ e.partido.nombre_partido }}</td>
         <td>{{ e.partido.fecha|date:"d/m/Y" }}</td>
         <td>{{ e.partido.resultado }}</td>
@@ -100,10 +110,10 @@
 {% endif %}
 
 {% if not proximas and not pasadas %}
-  <div class="card" style="text-align:center; padding:48px;">
-    <p style="font-size:3em; margin-bottom:16px;">🎟️</p>
-    <h2 style="margin-bottom:8px;">No tenés entradas todavía</h2>
-    <p style="color:#888; margin-bottom:24px;">Comprá entradas para los partidos del Mundial 2026</p>
+  <div class="card text-center empty-state">
+    <p class="empty-state-icon mb-16">🎟️</p>
+    <h2 class="mb-8">No tenés entradas todavía</h2>
+    <p class="text-muted mb-24">Comprá entradas para los partidos del Mundial 2026</p>
     <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
   </div>
 {% endif %}

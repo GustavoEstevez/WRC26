@@ -3,6 +3,11 @@
 
 <h1>🛒 Mi Carrito</h1>
 
+<style>
+.empty-card { padding:48px; }
+.empty-emoji { font-size:3em; }
+</style>
+
 {% if items %}
   <table>
     <thead>
@@ -33,12 +38,12 @@
     </tbody>
   </table>
 
-  <div class="card" style="margin-top:24px; display:flex; justify-content:space-between; align-items:center;">
+  <div class="card mt-24 flex justify-between items-center">
     <div>
-      <h2>Total: <span style="color:#1a1a2e;">${{ total }}</span></h2>
-      <p style="color:#888; font-size:0.9em; margin-top:4px;">{{ items|length }} partido(s) en el carrito</p>
+      <h2>Total: <span>${{ total }}</span></h2>
+      <p class="text-muted text-sm mt-4">{{ items|length }} partido(s) en el carrito</p>
     </div>
-    <div style="display:flex; gap:10px;">
+    <div class="flex gap-10">
       <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Seguir comprando</a>
       <a href="{% url 'confirmar_compra' %}" class="btn btn-primary">
         💳 Ir a pagar
@@ -47,10 +52,10 @@
   </div>
 
 {% else %}
-  <div class="card" style="text-align:center; padding:48px;">
-    <p style="font-size:3em; margin-bottom:16px;">🛒</p>
-    <h2 style="margin-bottom:8px;">Tu carrito está vacío</h2>
-    <p style="color:#888; margin-bottom:24px;">Explorá los partidos y agregá entradas</p>
+  <div class="card text-center empty-card">
+    <p class="empty-emoji mb-16">🛒</p>
+    <h2 class="mb-8">Tu carrito está vacío</h2>
+    <p class="text-muted mb-24">Explorá los partidos y agregá entradas</p>
     <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
   </div>
 {% endif %}

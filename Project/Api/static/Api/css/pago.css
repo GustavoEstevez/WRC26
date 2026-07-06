@@ -1,0 +1,67 @@
+.pago-grid {
+  display: grid; grid-template-columns: 1fr 400px; gap: 24px; align-items: start;
+}
+.pago-metodos {
+  display: flex; gap: 12px; margin-bottom: 24px;
+}
+.pago-metodos label {
+  flex: 1; cursor: pointer;
+}
+.pago-metodos input[type="radio"] { display: none; }
+.metodo-btn {
+  text-align: center; padding: 12px; border-radius: 8px;
+  border: 2px solid #e8eaed; font-weight: 600; font-size: 0.9em;
+  transition: all 0.2s;
+}
+.metodo-btn.activo {
+  border-color: #000; background: #000; color: #fff;
+}
+.metodo-btn:hover { border-color: #000; }
+.pago-campo { margin-bottom: 16px; }
+.pago-fila {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+}
+.card-preview {
+  background: linear-gradient(135deg, #1a1a2e, #e94560);
+  border-radius: 16px; padding: 24px; color: white;
+  margin-bottom: 20px; font-family: monospace;
+}
+.card-preview-header {
+  font-size: 0.75em; opacity: 0.7; margin-bottom: 16px;
+}
+.card-preview-numero {
+  font-size: 1.3em; letter-spacing: 3px; margin-bottom: 20px;
+}
+.card-preview-footer {
+  display: flex; justify-content: space-between; font-size: 0.85em;
+}
+.card-preview-label { opacity: 0.7; font-size: 0.75em; }
+.transferencia-box {
+  background: #f8f9fa; border: 1px dashed #ccc; border-radius: 10px; padding: 20px;
+}
+.transferencia-box h3 { margin-bottom: 12px; }
+.transferencia-nota {
+  margin-top: 12px; color: #888; font-size: 0.9em;
+}
+.btn-pago {
+  width: 100%; padding: 14px; font-size: 1em; margin-top: 8px;
+}
+.resumen-item {
+  padding: 12px 0; border-bottom: 1px solid #e8eaed;
+}
+.resumen-item-nombre { font-weight: 600; margin-bottom: 4px; }
+.resumen-item-detalle { color: #888; font-size: 0.85em; }
+.resumen-item-subtotal { font-weight: 600; margin-top: 4px; }
+.resumen-total {
+  padding-top: 16px; display: flex; justify-content: space-between; align-items: center;
+}
+.resumen-total-label { font-size: 1.1em; font-weight: 600; }
+.resumen-total-monto { font-size: 1.4em; font-weight: 700; color: #1a1a2e; }
+.seguro-box {
+  background: #e6f4ea; border: none; border-radius: 10px;
+}
+.seguro-texto { color: #137333; font-size: 0.9em; }
+
+@media (max-width: 800px) {
+  .pago-grid { grid-template-columns: 1fr; }
+}

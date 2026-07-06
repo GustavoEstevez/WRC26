@@ -1,24 +1,86 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
 {% block content %}
 
-<h1>⚽ Gestión de Canchas — FIFA World Cup 2026</h1>
+<link rel="stylesheet" href="{% static 'Api/css/inicio.css' %}">
 
-<div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px; margin-bottom:30px;">
-  <div class="card" style="text-align:center;">
-    <h2 style="font-size:2em;">{{ estadios.count }}</h2>
-    <p>Estadios registrados</p>
-    <a href="{% url 'lista_estadios' %}" class="btn btn-primary" style="margin-top:10px;">Ver estadios</a>
+<!-- ─── CAROUSEL HERO ──────────────────────── -->
+<section class="carousel">
+  <input type="radio" name="slide" id="s1" checked>
+  <input type="radio" name="slide" id="s2">
+  <input type="radio" name="slide" id="s3">
+  <input type="radio" name="slide" id="s4">
+  <input type="radio" name="slide" id="s5">
+
+  <div class="carousel-slides">
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/FIFALogin.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Messi.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Paraguay.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Haaland.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Mbappe.jpg' %}')"></div>
   </div>
-  <div class="card" style="text-align:center;">
-    <h2 style="font-size:2em;">{{ partidos_proximos.count }}</h2>
-    <p>Próximos partidos</p>
-    <a href="{% url 'lista_partidos' %}" class="btn btn-primary" style="margin-top:10px;">Ver partidos</a>
+  <div class="carousel-overlay"></div>
+
+  <div class="carousel-nav">
+    <label class="prev" onclick="window.__carouselPrev()">‹</label>
+    <label class="next" onclick="window.__carouselNext()">›</label>
   </div>
-  
+
+  <div class="carousel-content">
+    <h1>FIFA World Cup 2026</h1>
+    <p>Gestioná canchas, estadios, partidos y reservas para el torneo más grande del mundo. Canada · Mexico · USA</p>
+    <a href="{% url 'lista_partidos' %}" class="carousel-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Ver partidos
+    </a>
+  </div>
+  <div class="carousel-dots">
+    <label for="s1"></label>
+    <label for="s2"></label>
+    <label for="s3"></label>
+    <label for="s4"></label>
+    <label for="s5"></label>
+  </div>
+</section>
+
+<!-- ─── STATS CARDS ──────────────────────────── -->
+<h2 class="section-title">Explorar</h2>
+<div class="card-grid">
+  <a href="{% url 'lista_estadios' %}" class="feature-card">
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/Stadiums.jpg' %}')"></div>
+    <div class="feature-card-body">
+      <div>
+        <h3>Estadios</h3>
+        <p>{{ estadios.count }} sedes registradas para el torneo</p>
+      </div>
+      <span class="feature-card-btn">Ir a ver →</span>
+    </div>
+  </a>
+  <a href="{% url 'lista_partidos' %}" class="feature-card">
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/opening.jpg' %}')"></div>
+    <div class="feature-card-body">
+      <div>
+        <h3>Partidos</h3>
+        <p>{{ total_partidos }} encuentros programados</p>
+      </div>
+      <span class="feature-card-btn">Ir a ver →</span>
+    </div>
+  </a>
+  <a href="{% url 'lista_equipos' %}" class="feature-card">
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/Qualifiers.jpg' %}')"></div>
+    <div class="feature-card-body">
+      <div>
+        <h3>Equipos</h3>
+        <p>{{ total_equipos }} selecciones participantes</p>
+      </div>
+      <span class="feature-card-btn">Ir a ver →</span>
+    </div>
+  </a>
 </div>
 
-<div class="card">
-  <h2>Próximos partidos</h2>
+<!-- ─── PRÓXIMOS PARTIDOS ────────────────────── -->
+<div class="matches-card">
+  <h3>Próximos partidos</h3>
   {% if partidos_proximos %}
     <table>
       <thead>
@@ -43,8 +105,32 @@
       </tbody>
     </table>
   {% else %}
-    <p>No hay partidos próximos cargados.</p>
+    <p class="p-20 text-muted">No hay partidos próximos cargados.</p>
   {% endif %}
 </div>
 
+<script>
+(function(){
+  const radios = document.querySelectorAll('input[name="slide"]');
+  const total = radios.length;
+  let current = 0;
+  let timer;
+  function goTo(n) {
+    radios[n].checked = true;
+    current = n;
+    resetTimer();
+  }
+  function next() { goTo((current + 1) % total); }
+  function prev() { goTo((current - 1 + total) % total); }
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 3500);
+  }
+  resetTimer();
+  const allLabels = document.querySelectorAll('.carousel-nav label, .carousel-dots label');
+  allLabels.forEach(l => l.addEventListener('click', () => { clearInterval(timer); resetTimer(); }));
+  window.__carouselNext = next;
+  window.__carouselPrev = prev;
+})();
+</script>
 {% endblock %}

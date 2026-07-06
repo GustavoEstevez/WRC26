@@ -63,7 +63,7 @@ def lista_estadios(request):
 @login_required
 @solo_admin
 def crear_estadio(request):
-    form = EstadioForm(request.POST or None)
+    form = EstadioForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
         messages.success(request, 'Estadio creado.')
@@ -75,7 +75,7 @@ def crear_estadio(request):
 @solo_admin
 def editar_estadio(request, pk):
     estadio = get_object_or_404(Estadio, pk=pk)
-    form = EstadioForm(request.POST or None, instance=estadio)
+    form = EstadioForm(request.POST or None, request.FILES or None, instance=estadio)
     if form.is_valid():
         form.save()
         messages.success(request, 'Estadio actualizado.')
@@ -97,17 +97,25 @@ def eliminar_estadio(request, pk):
 @login_required
 def mapa_estadios(request):
     estadios = Estadio.objects.filter(latitud__isnull=False, longitud__isnull=False)
+    destacar_id = request.GET.get('destacar')
+    try:
+        destacar_id = int(destacar_id) if destacar_id else None
+    except (ValueError, TypeError):
+        destacar_id = None
     estadios_json = json.dumps([{
+        'id': e.id,
         'nombre': e.nombre,
         'ciudad': e.ciudad,
         'pais': e.pais,
         'capacidad': e.capacidad,
+        'imagen': e.imagen.url if e.imagen else '',
         'lat': float(e.latitud),
         'lng': float(e.longitud),
     } for e in estadios])
     return render(request, 'canchas/mapa_estadios.html', {
         'estadios_json': estadios_json,
         'estadios': estadios,
+        'destacar_id': destacar_id,
     })
 
 

@@ -8,7 +8,7 @@
   <p><strong>Superficie:</strong> {{ cancha.get_superficie_display }}</p>
   <p><strong>Estado:</strong> {{ cancha.get_estado_display }}</p>
   <p><strong>Dimensiones:</strong> {{ cancha.largo }}m x {{ cancha.ancho }}m</p>
-  <div style="margin-top:16px; display:flex; gap:10px;">
+  <div class="mt-16 flex gap-10">
     <a href="{% url 'crear_reserva' cancha.pk %}" class="btn btn-primary">+ Reservar</a>
     <a href="{% url 'editar_cancha' cancha.pk %}" class="btn btn-warning">Editar</a>
     <a href="{% url 'lista_canchas' %}" class="btn btn-secondary">Volver</a>

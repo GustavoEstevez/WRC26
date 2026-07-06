@@ -7,7 +7,7 @@ from .models import Estadio, Equipo, Partido, Entrada
 class EstadioForm(forms.ModelForm):
     class Meta:
         model = Estadio
-        fields = ['nombre', 'ciudad', 'pais', 'capacidad', 'latitud', 'longitud']
+        fields = ['nombre', 'ciudad', 'pais', 'capacidad', 'imagen', 'latitud', 'longitud']
 
 
 class EquipoForm(forms.ModelForm):
