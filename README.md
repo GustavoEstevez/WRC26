@@ -121,7 +121,7 @@ http://127.0.0.1:8000/
 | Rol | Usuario | Contraseña |
 |-----|---------|------------|
 | Administrador | admin | admin |
-| Operador | usuario | usuario |
+| Operador | usuario | Test2026 |
 
 > Para cambiar el rol de un usuario: entrar al panel `/admin/` → Perfiles → cambiar rol a Administrador.
 
