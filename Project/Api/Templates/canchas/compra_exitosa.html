@@ -1,47 +1,84 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - Compra exitosa{% endblock %}
 {% block content %}
 
-<style>
-.hero-section { padding:40px 0; }
-.hero-emoji { font-size:4em; }
-.entrada-card { max-width:600px; margin:0 auto 16px; border-left:4px solid #e94560; }
-.entrada-badge { font-size:0.75em; color:#e94560; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
-.entrada-codigo-box { min-width:120px; }
-.entrada-codigo { font-family:monospace; color:#1a1a2e; }
-</style>
+<link rel="stylesheet" href="{% static 'Api/css/entradas.css' %}">
 
-<div class="text-center hero-section">
-  <div class="hero-emoji mb-16">🎉</div>
-  <h1 class="mb-8">¡Compra realizada con éxito!</h1>
-  <p class="text-muted mb-32">Tus entradas fueron confirmadas</p>
+<div class="exito-header">
+  <div class="exito-icon">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h1>Compra realizada con &eacute;xito</h1>
+  <p>Tus entradas fueron confirmadas. Revis&aacute; el detalle a continuaci&oacute;n.</p>
 </div>
 
-{% for entrada in entradas %}
-<div class="card entrada-card">
-  <div class="flex justify-between items-start">
-    <div>
-      <p class="entrada-badge mb-8">
-        🎟️ Entrada confirmada
-      </p>
-      <h2 class="mb-8">{{ entrada.partido.nombre_partido }}</h2>
-      <p>📅 {{ entrada.partido.fecha|date:"d/m/Y H:i" }}</p>
-      <p>🏟️ {{ entrada.partido.estadio.nombre }} — {{ entrada.partido.estadio.ciudad }}</p>
-      <p>🪑 {{ entrada.get_categoria_display }} × {{ entrada.cantidad }}</p>
-      <p>💵 Total: <strong>${{ entrada.precio_total }}</strong></p>
-    </div>
-    <div class="text-center bg-gray p-16 rounded entrada-codigo-box">
-      <p class="text-xs text-muted mb-4">CÓDIGO</p>
-      <p class="text-bolder text-lg entrada-codigo">
-        {{ entrada.codigo }}
-      </p>
+<div class="entradas-grid">
+  {% for entrada in entradas %}
+  <div class="entrada-card">
+    <div class="entrada-card-strip"></div>
+    <div class="entrada-card-body">
+      <div class="entrada-card-header">
+        <div class="entrada-card-logos">
+          <img class="entrada-card-logo" src="{% static 'Api/images/logos/WorldCupLogo.png' %}" alt="World Cup 2026">
+          <img class="entrada-card-logo" src="{% static 'Api/images/logos/FIFABlackLogo.png' %}" alt="FIFA">
+        </div>
+        <span class="entrada-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Confirmada
+        </span>
+      </div>
+
+      <div class="entrada-partido">
+        <div class="entrada-partido-flags">
+          {% if entrada.partido.equipo_local and entrada.partido.equipo_local.bandera %}
+          <img class="entrada-partido-flag" src="{{ entrada.partido.equipo_local.bandera.url }}" alt="">
+          {% endif %}
+          <span class="entrada-partido-vs">VS</span>
+          {% if entrada.partido.equipo_visitante and entrada.partido.equipo_visitante.bandera %}
+          <img class="entrada-partido-flag" src="{{ entrada.partido.equipo_visitante.bandera.url }}" alt="">
+          {% endif %}
+        </div>
+        <div class="entrada-partido-info">
+          <div class="entrada-partido-nombre">{{ entrada.partido.nombre_partido }}</div>
+          <div class="entrada-partido-detalle">{{ entrada.partido.fecha|date:"l, d F Y - H:i" }}</div>
+          <div class="entrada-partido-detalle">{{ entrada.partido.estadio.nombre }} &middot; {{ entrada.partido.estadio.ciudad }}</div>
+        </div>
+      </div>
+
+      <div class="entrada-detalles">
+        <div class="entrada-detalle-item">
+          <div class="entrada-detalle-label">Categor&iacute;a</div>
+          <div class="entrada-detalle-value">{{ entrada.get_categoria_display }}</div>
+        </div>
+        <div class="entrada-detalle-item">
+          <div class="entrada-detalle-label">Cantidad</div>
+          <div class="entrada-detalle-value">{{ entrada.cantidad }}</div>
+        </div>
+        <div class="entrada-detalle-item">
+          <div class="entrada-detalle-label">Total</div>
+          <div class="entrada-detalle-value">USD ${{ entrada.precio_total }}</div>
+        </div>
+        <div class="entrada-detalle-item">
+          <div class="entrada-detalle-label">C&oacute;digo</div>
+          <div class="entrada-detalle-value codigo">{{ entrada.codigo }}</div>
+        </div>
+      </div>
     </div>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
 
-<div class="text-center mt-32 flex gap-12 justify-center">
-  <a href="{% url 'mis_entradas' %}" class="btn btn-primary">🎟️ Ver mis entradas</a>
-  <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Ver más partidos</a>
+<div class="entrada-actions">
+  <a href="{% url 'mis_entradas' %}" class="btn btn-primary">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 010 6v2a2 2 0 002 2h16a2 2 0 002-2v-2a3 3 0 010-6V7a2 2 0 00-2-2H4a2 2 0 00-2 2z"/><path d="M13 5v14"/></svg>
+    Ver mis entradas
+  </a>
+  <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Ver m&aacute;s partidos</a>
+  <a href="javascript:history.back()" class="btn btn-ghost">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Volver
+  </a>
 </div>
 
 {% endblock %}

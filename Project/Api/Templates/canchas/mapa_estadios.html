@@ -1,5 +1,6 @@
 {% extends 'canchas/base.html' %}
 {% load static %}
+{% block title %} - Mapa de estadios{% endblock %}
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'Api/css/mapa.css' %}">
@@ -68,7 +69,7 @@
         </span>
         <span class="mapa-card-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          {{ e.capacidad }} esp.
+          <strong>{{ e.capacidad }} esp.</strong>
         </span>
         <span class="mapa-card-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 0-5-5"/><path d="M8.5 8.5a4 4 0 0 1 4 4"/></svg>

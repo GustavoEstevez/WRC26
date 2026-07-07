@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
+from django.db import models
 from .models import Estadio, Equipo, Partido, Entrada, Perfil
 from .forms import EstadioForm, EquipoForm, PartidoForm, EntradaForm, RegistroForm
 import json
@@ -28,14 +29,24 @@ def error_403(request, exception=None):
 # ─── INICIO ───────────────────────────────────────────────
 @login_required
 def inicio(request):
+    from datetime import datetime
     partidos_proximos = Partido.objects.filter(
         fecha__gt=timezone.now()
-    ).order_by('fecha')[:6]
+    ).select_related('estadio', 'equipo_local', 'equipo_visitante').order_by('fecha')[:6]
+    partido_destacado = partidos_proximos.first()
+    partido_final = Partido.objects.filter(fase='final').select_related('estadio', 'equipo_local', 'equipo_visitante').first()
+    hoy = timezone.make_aware(datetime(2026, 7, 7))
+    partidos_destacados = Partido.objects.filter(
+        fecha__gte=hoy
+    ).select_related('estadio', 'equipo_local', 'equipo_visitante').order_by('fecha')
     estadios = Estadio.objects.all()
     total_equipos = Equipo.objects.count()
     total_partidos = Partido.objects.count()
     return render(request, 'canchas/inicio.html', {
         'partidos_proximos': partidos_proximos,
+        'partido_destacado': partido_destacado,
+        'partido_final': partido_final,
+        'partidos_destacados': partidos_destacados,
         'estadios': estadios,
         'total_equipos': total_equipos,
         'total_partidos': total_partidos,
@@ -160,16 +171,59 @@ def eliminar_equipo(request, pk):
     return render(request, 'canchas/confirmar_eliminar.html', {'objeto': equipo})
 
 
+@login_required
+def detalle_equipo(request, pk):
+    equipo = get_object_or_404(Equipo, pk=pk)
+    partidos = Partido.objects.filter(
+        models.Q(equipo_local=equipo) | models.Q(equipo_visitante=equipo)
+    ).select_related('estadio', 'equipo_local', 'equipo_visitante').order_by('fecha')
+    return render(request, 'canchas/detalle_equipo.html', {
+        'equipo': equipo,
+        'partidos': partidos,
+        'FASE_CHOICES': Partido.FASE_CHOICES,
+    })
+
+
 # ─── PARTIDOS ─────────────────────────────────────────────
 @login_required
 def lista_partidos(request):
     fase = request.GET.get('fase', '')
+    equipo = request.GET.get('equipo', '')
+    pais = request.GET.get('pais', '')
+    ciudad = request.GET.get('ciudad', '')
+    estadio_id = request.GET.get('estadio', '')
+
     partidos = Partido.objects.select_related('estadio', 'equipo_local', 'equipo_visitante')
+
     if fase:
         partidos = partidos.filter(fase=fase)
+    if equipo:
+        partidos = partidos.filter(
+            models.Q(equipo_local_id=equipo) | models.Q(equipo_visitante_id=equipo)
+        )
+    if pais:
+        partidos = partidos.filter(estadio__pais__icontains=pais)
+    if ciudad:
+        partidos = partidos.filter(estadio__ciudad__icontains=ciudad)
+    if estadio_id:
+        partidos = partidos.filter(estadio_id=estadio_id)
+
+    estadios = Estadio.objects.all().order_by('pais', 'ciudad', 'nombre')
+    paises = Estadio.objects.values_list('pais', flat=True).distinct().order_by('pais')
+    ciudades = Estadio.objects.values_list('ciudad', flat=True).distinct().order_by('ciudad')
+    equipos = Equipo.objects.all().order_by('nombre')
     return render(request, 'canchas/lista_partidos.html', {
         'partidos': partidos,
         'fase_actual': fase,
+        'equipo_actual': equipo,
+        'pais_actual': pais,
+        'ciudad_actual': ciudad,
+        'estadio_actual': estadio_id,
+        'FASE_CHOICES': Partido.FASE_CHOICES,
+        'equipos': equipos,
+        'estadios': estadios,
+        'paises': paises,
+        'ciudades': ciudades,
     })
 
 
@@ -255,10 +309,18 @@ def ver_carrito(request):
     carrito = request.session.get('carrito', {})
     items = []
     total = 0
+    partido_ids = []
     for key, item in carrito.items():
         subtotal = item['precio_unitario'] * item['cantidad']
         total += subtotal
         items.append({**item, 'subtotal': subtotal, 'key': key})
+        partido_ids.append(item['partido_id'])
+    partidos_qs = Partido.objects.filter(id__in=partido_ids).select_related(
+        'estadio', 'equipo_local', 'equipo_visitante'
+    )
+    partidos_map = {p.id: p for p in partidos_qs}
+    for item in items:
+        item['partido_obj'] = partidos_map.get(item['partido_id'])
     return render(request, 'canchas/carrito.html', {
         'items': items,
         'total': total,

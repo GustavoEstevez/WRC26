@@ -2,7 +2,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Inter', 'Noto Sans', 'Segoe UI', Arial, sans-serif;
-  background: #f4f5f7; color: #1a1a2e; padding-top: 80px;
+  background: linear-gradient(rgba(247,248,250,0.45), rgba(238,240,243,0.55)), url('../images/backgrounds/Background.jpg') center/cover fixed; color: #1a1a2e;
+  display: flex; flex-direction: column; min-height: 100vh;
+  padding-top: 80px; overflow-x: hidden;
 }
 
 /* ─── HEADER ───────────────────────────────── */
@@ -59,13 +61,15 @@ body {
 .nav-links a:hover::after { transform: scaleX(1); }
 
 .header-right {
-  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
-  flex: 1;
+  display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+  margin-left: auto;
 }
 .header-right-group {
   display: flex; align-items: center; gap: 10px;
 }
 .fifa-logo { height: 34px; width: auto; display: block; margin-left: 6px; }
+.visa-logo { height: 50px; width: auto; display: block; }
+.header-right .visa-logo { margin-right: -8px; }
 
 .user-btn {
   display: inline-flex; align-items: center; gap: 6px;
@@ -92,8 +96,42 @@ body {
 }
 .user-name:hover { background: rgba(0,0,0,0.04); }
 
+/* ─── FOOTER ─────────────────────────────────── */
+.footer {
+  background: #fff; border-top: 1px solid #e8eaed;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.04); margin-top: 48px;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto; padding: 32px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.footer-brand {
+  display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;
+}
+.footer-brand:hover { opacity: 0.7; }
+.footer-contact {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;
+}
+.footer-contact a {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: #5f6368; font-size: 0.88rem;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-contact a:hover { color: #000; }
+.footer-contact svg { flex-shrink: 0; }
+.footer-right {
+  display: flex; align-items: center; gap: 32px; flex-shrink: 0;
+}
+.footer-copy {
+  font-size: 0.78rem; color: #9aa0a6; font-weight: 500; white-space: nowrap;
+}
+.footer-bottom {
+  border-top: 1px solid #e8eaed; padding: 16px 20px;
+  display: flex; justify-content: center; align-items: center;
+}
+
 /* ─── PAGE COMMON ──────────────────────────── */
-.container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+.container { max-width: 1100px; width: 100%; margin: 30px auto; padding: 0 20px; flex: 1; }
 h1, h2 { margin-bottom: 20px; color: #1a1a2e; }
 table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden;
         box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
@@ -128,9 +166,13 @@ form input:focus, form select:focus, form textarea:focus {
         border: 1px solid #e8eaed; }
 
 /* ─── AUTH PAGES (login / registro) ────────── */
-.auth-page .container { max-width: none !important; margin: 0 !important; padding: 0 !important; }
+.container.auth-page {
+  max-width: none !important; margin: 0 !important; padding: 0 !important;
+  flex: 0 0 calc(100vh - 80px) !important; height: calc(100vh - 80px) !important;
+}
+.container.auth-page + .footer { display: none !important; }
 .auth-wrapper {
-  height: 100vh; width: 100vw; margin-top: -80px;
+  height: 100vh; width: 100%; margin-top: -80px;
   display: flex; align-items: stretch;
   background: #f4f5f7;
 }
@@ -246,4 +288,6 @@ form input:focus, form select:focus, form textarea:focus {
   .container { margin: 20px auto; padding: 0 12px; }
   .auth-image { display: none; }
   .auth-form { width: 100%; padding: 32px 24px; }
+  .footer-inner { flex-direction: column; align-items: center; text-align: center; padding: 24px 16px; gap: 16px; }
+  .footer-contact { flex-direction: column; gap: 8px; }
 }

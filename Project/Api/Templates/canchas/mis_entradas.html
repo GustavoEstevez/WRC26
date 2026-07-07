@@ -1,121 +1,159 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - Mis entradas{% endblock %}
 {% block content %}
 
-<style>
-.proximo-badge { color:#e94560; font-size:0.85em; text-transform:uppercase; letter-spacing:1px; }
-.monospace { font-family:monospace; }
-.proximo-countdown { background:#e94560; padding:10px 20px; }
-.proximo-countdown-text { font-size:1.4em; }
-.entrada-badge { background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:20px; }
-.empty-state { padding:48px; }
-.empty-state-icon { font-size:3em; }
-</style>
+<link rel="stylesheet" href="{% static 'Api/css/entradas.css' %}">
 
-<h1>🎟️ Mis Entradas</h1>
-
-{% if proximo %}
-  <div class="card bg-dark text-white mb-24">
-    <p class="proximo-badge text-bold mb-8">
-      ⏳ Tu próximo partido
-    </p>
-    <h2 class="text-white mb-12">{{ proximo.partido.nombre_partido }}</h2>
-    <div class="grid grid-2 gap-16 mb-16">
-      <div>
-        <p class="text-muted text-sm">Fecha</p>
-        <p class="text-white text-bold">{{ proximo.partido.fecha|date:"d/m/Y H:i" }}</p>
-      </div>
-      <div>
-        <p class="text-muted text-sm">Estadio</p>
-        <p class="text-white text-bold">{{ proximo.partido.estadio.nombre }}</p>
-      </div>
-      <div>
-        <p class="text-muted text-sm">Categoría</p>
-        <p class="text-white text-bold">{{ proximo.get_categoria_display }}</p>
-      </div>
-      <div>
-        <p class="text-muted text-sm">Código</p>
-        <p class="text-white text-bold monospace">{{ proximo.codigo }}</p>
-      </div>
-    </div>
-    <div class="proximo-countdown inline-block rounded">
-      <span class="proximo-countdown-text text-bold">
-        ⏳ Faltan {{ proximo.partido.dias_restantes }} días
-      </span>
-    </div>
+<div class="misentradas-header">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="{% url 'inicio' %}" style="display:flex;align-items:center;color:#5f6368;text-decoration:none;padding:6px 10px;border-radius:8px;transition:background 0.2s;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='transparent'">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    </a>
+    <h1>Mis entradas</h1>
   </div>
-{% endif %}
+  {% if proximas or pasadas %}
+  {% with p_len=proximas|length %}
+  {% with pa_len=pasadas|length %}
+  {% with total=p_len|add:pa_len %}
+  <span class="misentradas-count">{{ total }} {{ total|pluralize:'entrada,entradas' }}</span>
+  {% endwith %}
+  {% endwith %}
+  {% endwith %}
+  {% endif %}
+</div>
 
 {% if proximas %}
-  <h2 class="mb-16">Próximos partidos</h2>
-  <table class="mb-32">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Partido</th>
-        <th>Fecha</th>
-        <th>Estadio</th>
-        <th>Categoría</th>
-        <th>Cant.</th>
-        <th>Total</th>
-        <th>Días restantes</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for e in proximas %}
-      <tr>
-        <td><strong class="monospace">{{ e.codigo }}</strong></td>
-        <td>{{ e.partido.nombre_partido }}</td>
-        <td>{{ e.partido.fecha|date:"d/m/Y H:i" }}</td>
-        <td>{{ e.partido.estadio.nombre }}</td>
-        <td>{{ e.get_categoria_display }}</td>
-        <td>{{ e.cantidad }}</td>
-        <td>${{ e.precio_total }}</td>
-        <td>
-          <span class="entrada-badge text-sm text-bold">
-            ⏳ {{ e.partido.dias_restantes }} días
+<section class="misentradas-section">
+  <h2 class="misentradas-section-title">
+    Pr&oacute;ximos partidos
+    <span class="count">({{ proximas|length }})</span>
+  </h2>
+  <div class="misentradas-grid">
+    {% for e in proximas %}
+    <div class="entrada-card">
+      <div class="entrada-card-strip"></div>
+      <div class="entrada-card-body">
+        <div class="entrada-card-top">
+          <div class="entrada-card-logos">
+            <img class="entrada-card-logo" src="{% static 'Api/images/logos/WorldCupLogo.png' %}" alt="WC26">
+            <img class="entrada-card-logo" src="{% static 'Api/images/logos/FIFABlackLogo.png' %}" alt="FIFA">
+          </div>
+          <span class="entrada-badge entrada-badge-upcoming">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            {{ e.partido.dias_restantes }} d&iacute;a{{ e.partido.dias_restantes|pluralize:'s' }} restante{{ e.partido.dias_restantes|pluralize:'s' }}
           </span>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        </div>
+        <div class="entrada-partido">
+          <div class="entrada-partido-flags">
+            {% if e.partido.equipo_local and e.partido.equipo_local.bandera %}
+            <img class="entrada-partido-flag" src="{{ e.partido.equipo_local.bandera.url }}" alt="">
+            {% endif %}
+            <span class="entrada-partido-vs">VS</span>
+            {% if e.partido.equipo_visitante and e.partido.equipo_visitante.bandera %}
+            <img class="entrada-partido-flag" src="{{ e.partido.equipo_visitante.bandera.url }}" alt="">
+            {% endif %}
+          </div>
+          <div class="entrada-partido-info">
+            <div class="entrada-partido-nombre">{{ e.partido.nombre_partido }}</div>
+            <div class="entrada-partido-detalle">{{ e.partido.fecha|date:"l, d F Y - H:i" }} &middot; {{ e.partido.estadio.ciudad }}</div>
+          </div>
+        </div>
+        <div class="entrada-detalles">
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Categor&iacute;a</div>
+            <div class="entrada-detalle-value">{{ e.get_categoria_display }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Cantidad</div>
+            <div class="entrada-detalle-value">{{ e.cantidad }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Total</div>
+            <div class="entrada-detalle-value">USD ${{ e.precio_total }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">C&oacute;digo</div>
+            <div class="entrada-detalle-value codigo">{{ e.codigo }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 {% endif %}
 
 {% if pasadas %}
-  <h2 class="mb-16">Partidos jugados</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Partido</th>
-        <th>Fecha</th>
-        <th>Resultado</th>
-        <th>Categoría</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for e in pasadas %}
-      <tr class="text-muted">
-        <td class="monospace">{{ e.codigo }}</td>
-        <td>{{ e.partido.nombre_partido }}</td>
-        <td>{{ e.partido.fecha|date:"d/m/Y" }}</td>
-        <td>{{ e.partido.resultado }}</td>
-        <td>{{ e.get_categoria_display }}</td>
-        <td>${{ e.precio_total }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<section class="misentradas-section">
+  <h2 class="misentradas-section-title">
+    Partidos jugados
+    <span class="count">({{ pasadas|length }})</span>
+  </h2>
+  <div class="misentradas-grid">
+    {% for e in pasadas %}
+    <div class="entrada-card pasada">
+      <div class="entrada-card-strip"></div>
+      <div class="entrada-card-body">
+        <div class="entrada-card-top">
+          <div class="entrada-card-logos">
+            <img class="entrada-card-logo" src="{% static 'Api/images/logos/WorldCupLogo.png' %}" alt="WC26">
+            <img class="entrada-card-logo" src="{% static 'Api/images/logos/FIFABlackLogo.png' %}" alt="FIFA">
+          </div>
+          <span class="entrada-badge entrada-badge-played">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Jugado
+          </span>
+        </div>
+        <div class="entrada-partido">
+          <div class="entrada-partido-flags">
+            {% if e.partido.equipo_local and e.partido.equipo_local.bandera %}
+            <img class="entrada-partido-flag" src="{{ e.partido.equipo_local.bandera.url }}" alt="">
+            {% endif %}
+            <span class="entrada-partido-vs">VS</span>
+            {% if e.partido.equipo_visitante and e.partido.equipo_visitante.bandera %}
+            <img class="entrada-partido-flag" src="{{ e.partido.equipo_visitante.bandera.url }}" alt="">
+            {% endif %}
+          </div>
+          <div class="entrada-partido-info">
+            <div class="entrada-partido-nombre">{{ e.partido.nombre_partido }}</div>
+            <div class="entrada-partido-detalle">{{ e.partido.fecha|date:"l, d F Y" }} &middot; {{ e.partido.estadio.ciudad }}</div>
+          </div>
+        </div>
+        <div class="entrada-detalles">
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Resultado</div>
+            <div class="entrada-detalle-value">{{ e.partido.resultado }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Categor&iacute;a</div>
+            <div class="entrada-detalle-value">{{ e.get_categoria_display }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">Cantidad</div>
+            <div class="entrada-detalle-value">{{ e.cantidad }}</div>
+          </div>
+          <div class="entrada-detalle-item">
+            <div class="entrada-detalle-label">C&oacute;digo</div>
+            <div class="entrada-detalle-value codigo">{{ e.codigo }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 {% endif %}
 
 {% if not proximas and not pasadas %}
-  <div class="card text-center empty-state">
-    <p class="empty-state-icon mb-16">🎟️</p>
-    <h2 class="mb-8">No tenés entradas todavía</h2>
-    <p class="text-muted mb-24">Comprá entradas para los partidos del Mundial 2026</p>
-    <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
+<div class="misentradas-empty">
+  <div class="misentradas-empty-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 010 6v2a2 2 0 002 2h16a2 2 0 002-2v-2a3 3 0 010-6V7a2 2 0 00-2-2H4a2 2 0 00-2 2z"/><path d="M13 5v14"/></svg>
   </div>
+  <h2>No ten&eacute;s entradas todav&iacute;a</h2>
+  <p>Compr&aacute; entradas para los partidos del Mundial 2026</p>
+  <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
+</div>
 {% endif %}
 
 {% endblock %}

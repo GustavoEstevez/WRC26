@@ -1,63 +1,104 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - Carrito{% endblock %}
 {% block content %}
 
-<h1>🛒 Mi Carrito</h1>
+<link rel="stylesheet" href="{% static 'Api/css/partidos.css' %}">
+<link rel="stylesheet" href="{% static 'Api/css/carrito.css' %}">
 
-<style>
-.empty-card { padding:48px; }
-.empty-emoji { font-size:3em; }
-</style>
+<div class="carrito-header">
+  <h1>Carrito</h1>
+</div>
 
 {% if items %}
-  <table>
-    <thead>
-      <tr>
-        <th>Partido</th>
-        <th>Fecha</th>
-        <th>Categoría</th>
-        <th>Cantidad</th>
-        <th>Precio unit.</th>
-        <th>Subtotal</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in items %}
-      <tr>
-        <td><strong>{{ item.partido_nombre }}</strong></td>
-        <td>{{ item.partido_fecha }}</td>
-        <td>{{ item.categoria|capfirst }}</td>
-        <td>{{ item.cantidad }}</td>
-        <td>${{ item.precio_unitario }}</td>
-        <td><strong>${{ item.subtotal }}</strong></td>
-        <td>
-          <a href="{% url 'eliminar_carrito' item.key %}" class="btn btn-danger">Quitar</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <div class="card mt-24 flex justify-between items-center">
-    <div>
-      <h2>Total: <span>${{ total }}</span></h2>
-      <p class="text-muted text-sm mt-4">{{ items|length }} partido(s) en el carrito</p>
-    </div>
-    <div class="flex gap-10">
-      <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Seguir comprando</a>
-      <a href="{% url 'confirmar_compra' %}" class="btn btn-primary">
-        💳 Ir a pagar
-      </a>
+<div class="carrito-grid">
+  {% for item in items %}
+  {% with p=item.partido_obj %}
+  <div class="carrito-card">
+    <div class="carrito-card-bg" style="background-image: url('{% if p.estadio.imagen %}{{ p.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+    <div class="carrito-card-overlay"></div>
+    <div class="carrito-card-content">
+      <span class="carrito-card-badge">
+        {% if item.categoria == 'general' %}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><path d="M2 9a3 3 0 010 6v2a2 2 0 002 2h16a2 2 0 002-2v-2a3 3 0 010-6V7a2 2 0 00-2-2H4a2 2 0 00-2 2z"/><path d="M13 5v14"/></svg>
+        {% elif item.categoria == 'platea' %}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        {% elif item.categoria == 'vip' %}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        {% endif %}
+        {{ item.categoria|capfirst }}
+      </span>
+      <div class="carrito-card-teams">
+        <div class="carrito-card-team">
+          {% if p.equipo_local and p.equipo_local.bandera %}
+          <img class="carrito-card-flag" src="{{ p.equipo_local.bandera.url }}" alt="">
+          {% else %}
+          <span class="carrito-card-flag-placeholder"></span>
+          {% endif %}
+          <span class="carrito-card-team-name">{% if p.equipo_local %}{{ p.equipo_local.nombre }}{% else %}TBD{% endif %}</span>
+          <span class="carrito-card-team-code">{% if p.equipo_local %}{{ p.equipo_local.codigo_fifa }}{% endif %}</span>
+        </div>
+        <div class="carrito-card-vs">VS</div>
+        <div class="carrito-card-team">
+          {% if p.equipo_visitante and p.equipo_visitante.bandera %}
+          <img class="carrito-card-flag" src="{{ p.equipo_visitante.bandera.url }}" alt="">
+          {% else %}
+          <span class="carrito-card-flag-placeholder"></span>
+          {% endif %}
+          <span class="carrito-card-team-name">{% if p.equipo_visitante %}{{ p.equipo_visitante.nombre }}{% else %}TBD{% endif %}</span>
+          <span class="carrito-card-team-code">{% if p.equipo_visitante %}{{ p.equipo_visitante.codigo_fifa }}{% endif %}</span>
+        </div>
+      </div>
+      <div class="carrito-card-info">
+        <div class="carrito-card-info-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          {{ item.partido_fecha }}
+        </div>
+        <div class="carrito-card-info-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          {% if p.estadio %}{{ p.estadio.nombre }}{% endif %}
+        </div>
+      </div>
+      <div class="carrito-card-footer">
+        <div>
+          <div class="carrito-card-precio">USD ${{ item.subtotal }}</div>
+          <div class="carrito-card-detalle">{{ item.categoria|capfirst }} &times; {{ item.cantidad }} &middot; USD ${{ item.precio_unitario }} c/u</div>
+        </div>
+        <a href="{% url 'eliminar_carrito' item.key %}" class="carrito-card-remove">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+          Quitar
+        </a>
+      </div>
     </div>
   </div>
+  {% endwith %}
+  {% endfor %}
+</div>
+
+<div class="carrito-resumen">
+  <div class="carrito-resumen-info">
+    <div class="carrito-resumen-total-label">Total</div>
+    <div class="carrito-resumen-total">USD ${{ total }}</div>
+    <div class="carrito-resumen-count">{{ items|length }} {{ items|length|pluralize:"partido,partidos" }} en el carrito</div>
+  </div>
+  <div class="carrito-resumen-actions">
+    <a href="{% url 'lista_partidos' %}" class="btn btn-secondary">Seguir comprando</a>
+    <a href="{% url 'confirmar_compra' %}" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      Ir a pagar
+    </a>
+  </div>
+</div>
 
 {% else %}
-  <div class="card text-center empty-card">
-    <p class="empty-emoji mb-16">🛒</p>
-    <h2 class="mb-8">Tu carrito está vacío</h2>
-    <p class="text-muted mb-24">Explorá los partidos y agregá entradas</p>
-    <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
+<div class="carrito-vacio">
+  <div class="carrito-vacio-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
   </div>
+  <h2>Tu carrito est&aacute; vac&iacute;o</h2>
+  <p>Explor&aacute; los partidos y agreg&aacute; entradas</p>
+  <a href="{% url 'lista_partidos' %}" class="btn btn-primary">Ver partidos</a>
+</div>
 {% endif %}
 
 {% endblock %}

@@ -83,6 +83,7 @@
   background: #fff; border-radius: 16px; overflow: hidden;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.25s ease;
+  display: flex; flex-direction: column;
 }
 .estadio-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
 .estadio-card--exiting {
@@ -97,7 +98,8 @@
 }
 .estadio-card:hover .estadio-card-image { transform: scale(1.06); }
 .estadio-card-image {
-  height: 200px; background-size: cover; background-position: center;
+  height: 200px; min-height: 200px; flex-shrink: 0;
+  background-size: cover; background-position: center;
   background-color: #e8eaed;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -105,14 +107,19 @@
   display: flex; align-items: center; justify-content: center;
   font-size: 3rem; color: #9aa0a6;
 }
-.estadio-card-body { padding: 20px; }
+.estadio-card-body {
+  padding: 20px;
+  display: flex; flex-direction: column; flex: 1;
+}
 .estadio-card-body h3 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.15rem; font-weight: 600; color: #000; margin-bottom: 8px;
 }
 .estadio-card-info {
   display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 16px;
+  flex: 1;
 }
+.estadio-card-body .mb-12 { margin-top: auto; }
 .estadio-card-info-item {
   display: flex; align-items: center; gap: 6px;
   font-size: 0.88rem; color: #5f6368;

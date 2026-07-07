@@ -1,43 +1,61 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - Equipos{% endblock %}
 {% block content %}
 
-<div class="flex justify-between items-center">
+<div class="equipos-header">
   <h1>Equipos</h1>
- {% if request.user.perfil.rol == 'admin' %}
-  <a href="{% url 'crear_equipo' %}" class="btn btn-primary">+ Nuevo equipo</a>
-{% endif %}
+  {% if request.user.perfil.rol == 'admin' %}
+  <div class="equipos-actions">
+    <a href="{% url 'crear_equipo' %}" class="btn btn-primary">+ Nuevo equipo</a>
+  </div>
+  {% endif %}
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>País</th>
-      <th>Código FIFA</th>
-      <th>Grupo</th>
-      <th>Entrenador</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for e in equipos %}
-    <tr>
-      <td>{{ e.nombre }}</td>
-      <td>{{ e.pais }}</td>
-      <td>{{ e.codigo_fifa }}</td>
-      <td>{{ e.grupo }}</td>
-      <td>{{ e.entrenador }}</td>
-      <td>
-  {% if request.user.perfil.rol == 'admin' %}
-    <a href="{% url 'editar_equipo' e.pk %}" class="btn btn-warning">Editar</a>
-    <a href="{% url 'eliminar_equipo' e.pk %}" class="btn btn-danger">Eliminar</a>
-  {% endif %}
-      </td>
-    </tr>
+{% regroup equipos by grupo as grupos %}
+
+{% for grupo in grupos %}
+<section style="margin-bottom:40px;">
+  <h2 style="font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;color:#000;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e8eaed;">{{ grupo.grouper }}</h2>
+  <div class="equipo-grid">
+    {% for e in grupo.list %}
+    <div class="equipo-card">
+      <div class="equipo-card-image">
+        {% if e.bandera %}
+        <img src="{{ e.bandera.url }}" alt="{{ e.nombre }}" loading="lazy">
+        {% else %}
+        <span class="no-flag">{{ e.codigo_fifa }}</span>
+        {% endif %}
+      </div>
+      <div class="equipo-card-body">
+        <h3><a href="{% url 'detalle_equipo' e.pk %}" style="text-decoration:none;color:inherit;">{{ e.nombre }}</a></h3>
+        <div class="equipo-card-code">{{ e.codigo_fifa }}</div>
+        <div class="equipo-card-info">
+          <div class="equipo-card-info-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span><strong>País:</strong> {{ e.pais }}</span>
+          </div>
+          <div class="equipo-card-info-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>Entrenador:</strong> {{ e.entrenador }}</span>
+          </div>
+        </div>
+        <div class="equipo-card-actions">
+          <a href="{% url 'detalle_equipo' e.pk %}" class="btn btn-primary">Calendario</a>
+          {% if request.user.perfil.rol == 'admin' %}
+          <a href="{% url 'editar_equipo' e.pk %}" class="btn btn-warning">Editar</a>
+          <a href="{% url 'eliminar_equipo' e.pk %}" class="btn btn-danger">Eliminar</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
     {% empty %}
-    <tr><td colspan="6">No hay equipos registrados.</td></tr>
+    <div class="equipo-empty">No hay equipos en este grupo.</div>
     {% endfor %}
-  </tbody>
-</table>
+  </div>
+</section>
+{% empty %}
+<div style="text-align:center;padding:60px 20px;color:#6b7280;font-size:1rem;">No hay equipos registrados.</div>
+{% endfor %}
 
 {% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - {{ equipo.nombre }}{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'Api/css/partidos.css' %}">
+
+<div class="mb-16">
+  <a href="{% url 'lista_equipos' %}" class="btn btn-secondary">← Volver a equipos</a>
+</div>
+
+<div class="equipo-detail-header">
+  {% if equipo.bandera %}
+  <img class="equipo-detail-flag" src="{{ equipo.bandera.url }}" alt="{{ equipo.nombre }}">
+  {% else %}
+  <div class="equipo-detail-flag-placeholder">{{ equipo.codigo_fifa }}</div>
+  {% endif %}
+  <div class="equipo-detail-info">
+    <h1>{{ equipo.nombre }}</h1>
+    <div class="equipo-detail-code">{{ equipo.codigo_fifa }}</div>
+    <div class="equipo-detail-meta">
+      <div class="equipo-detail-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span><strong>País:</strong> {{ equipo.pais }}</span>
+      </div>
+      <div class="equipo-detail-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        <span><strong>Grupo:</strong> {{ equipo.grupo }}</span>
+      </div>
+      <div class="equipo-detail-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span><strong>Entrenador:</strong> {{ equipo.entrenador }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% regroup partidos by get_fase_display as partidos_por_fase %}
+
+<div class="calendar-tabs">
+  <button class="calendar-tab active" data-filter="all">Todos</button>
+  <button class="calendar-tab" data-filter="upcoming">Próximos</button>
+  <button class="calendar-tab" data-filter="played">Jugados</button>
+</div>
+
+{% for grupo in partidos_por_fase %}
+<section class="calendar-fase-section" data-fase="{{ grupo.grouper }}">
+  <h3 class="calendar-fase-title">{{ grupo.grouper }}</h3>
+  <div class="partidos-grid">
+    {% for p in grupo.list %}
+    <div class="partido-card" style="height:270px;" data-jugado="{{ p.ya_jugado|yesno:'played,upcoming' }}">
+      <div class="partido-card-bg" style="background-image: url('{% if p.estadio.imagen %}{{ p.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+      <div class="partido-card-overlay"></div>
+      <div class="partido-card-content">
+        <div style="text-align:center;margin-bottom:4px;">
+          <span class="calendar-badge {% if p.ya_jugado %}calendar-badge-played{% else %}calendar-badge-upcoming{% endif %}">
+            {% if p.ya_jugado %}Jugado{% else %}Próximo{% endif %}
+          </span>
+        </div>
+        <div class="partido-teams" style="padding-bottom:6px;">
+          <div class="partido-team">
+            {% if p.equipo_local %}
+            {% if p.equipo_local.bandera %}
+            <img class="partido-team-flag" src="{{ p.equipo_local.bandera.url }}" alt="{{ p.equipo_local.codigo_fifa }}">
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            {% endif %}
+            <span class="partido-team-name" style="{% if p.equipo_local == equipo %}text-decoration:underline;text-underline-offset:2px;{% endif %}">{{ p.equipo_local.nombre }}</span>
+            <span class="partido-team-code">{{ p.equipo_local.codigo_fifa }}</span>
+            {% endif %}
+          </div>
+          {% if p.ya_jugado and p.goles_local is not None %}
+          <div class="partido-vs" style="font-size:1.1rem;">{{ p.goles_local }} - {{ p.goles_visitante }}</div>
+          {% else %}
+          <div class="partido-vs">VS</div>
+          {% endif %}
+          <div class="partido-team">
+            {% if p.equipo_visitante %}
+            {% if p.equipo_visitante.bandera %}
+            <img class="partido-team-flag" src="{{ p.equipo_visitante.bandera.url }}" alt="{{ p.equipo_visitante.codigo_fifa }}">
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            {% endif %}
+            <span class="partido-team-name" style="{% if p.equipo_visitante == equipo %}text-decoration:underline;text-underline-offset:2px;{% endif %}">{{ p.equipo_visitante.nombre }}</span>
+            <span class="partido-team-code">{{ p.equipo_visitante.codigo_fifa }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="partido-info" style="gap:4px 10px;">
+          <div class="partido-info-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            {{ p.fecha|date:"d/m/Y H:i" }}
+          </div>
+          <div class="partido-info-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {{ p.estadio.nombre }}, {{ p.estadio.ciudad }}
+          </div>
+        </div>
+        <div class="partido-footer">
+          <span class="partido-precio">Desde ${{ p.precio_general|floatformat:0 }} USD</span>
+          <a href="{% url 'detalle_partido' p.pk %}" class="partido-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            {% if p.ya_jugado %}Ver detalle{% else %}Comprar{% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<div class="calendar-no-matches">Este equipo no tiene partidos programados.</div>
+{% endfor %}
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.calendar-tab');
+  const sections = document.querySelectorAll('.calendar-fase-section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const filter = this.dataset.filter;
+
+      sections.forEach(section => {
+        const cards = section.querySelectorAll('.partido-card');
+        let visible = 0;
+        cards.forEach(c => {
+          const estado = c.dataset.jugado;
+          if (filter === 'all' || estado === filter) {
+            c.style.display = '';
+            visible++;
+          } else {
+            c.style.display = 'none';
+          }
+        });
+        section.style.display = visible > 0 ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+{% endblock %}

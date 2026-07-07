@@ -1,8 +1,10 @@
 {% extends 'canchas/base.html' %}
 {% load static %}
+{% block title %} - Inicio{% endblock %}
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'Api/css/inicio.css' %}">
+<link rel="stylesheet" href="{% static 'Api/css/partidos.css' %}">
 
 <!-- ─── CAROUSEL HERO ──────────────────────── -->
 <section class="carousel">
@@ -11,13 +13,23 @@
   <input type="radio" name="slide" id="s3">
   <input type="radio" name="slide" id="s4">
   <input type="radio" name="slide" id="s5">
+  <input type="radio" name="slide" id="s6">
+  <input type="radio" name="slide" id="s7">
+  <input type="radio" name="slide" id="s8">
+  <input type="radio" name="slide" id="s9">
+  <input type="radio" name="slide" id="s10">
 
   <div class="carousel-slides">
-    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/FIFALogin.jpg' %}')"></div>
-    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Messi.jpg' %}')"></div>
-    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Paraguay.jpg' %}')"></div>
-    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Haaland.jpg' %}')"></div>
-    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/Mbappe.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/logos/FIFALogin.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Messi.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Mbappe.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Haaland.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Ronaldo.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Paraguay.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Erling.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/Ecuador.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/CapeVerde.jpg' %}')"></div>
+    <div class="carousel-slide" style="background-image:url('{% static 'Api/images/players/vozinha.jpg' %}')"></div>
   </div>
   <div class="carousel-overlay"></div>
 
@@ -27,11 +39,11 @@
   </div>
 
   <div class="carousel-content">
-    <h1>FIFA World Cup 2026</h1>
-    <p>Gestioná canchas, estadios, partidos y reservas para el torneo más grande del mundo. Canada · Mexico · USA</p>
+    <h1>FIFA WORLD CUP 2026</h1>
+    <p>Gestioná estadios, partidos y entradas para el torneo más grande del mundo. Explorá las 16 sedes en Canadá, México y Estados Unidos, y asegurá tu lugar en la historia del fútbol.</p>
     <a href="{% url 'lista_partidos' %}" class="carousel-btn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      Ver partidos
+      Comprá tu entrada ahora
     </a>
   </div>
   <div class="carousel-dots">
@@ -40,14 +52,63 @@
     <label for="s3"></label>
     <label for="s4"></label>
     <label for="s5"></label>
+    <label for="s6"></label>
+    <label for="s7"></label>
+    <label for="s8"></label>
+    <label for="s9"></label>
+    <label for="s10"></label>
   </div>
 </section>
 
-<!-- ─── STATS CARDS ──────────────────────────── -->
+<!-- ─── PARTIDO DESTACADO ──────────────────── -->
+{% if partido_destacado %}
+<h2 class="section-title">Próximo partido</h2>
+<div class="featured-match">
+  <div class="featured-match-bg" style="background-image: url('{% if partido_destacado.estadio.imagen %}{{ partido_destacado.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+  <div class="featured-match-overlay"></div>
+  <div class="featured-match-content">
+    <div class="featured-match-badge">Próximo partido</div>
+    <div class="featured-match-teams">
+      <div class="featured-match-team">
+        {% if partido_destacado.equipo_local and partido_destacado.equipo_local.bandera %}
+        <img class="featured-match-flag" src="{{ partido_destacado.equipo_local.bandera.url }}" alt="">
+        {% endif %}
+        <span class="featured-match-team-name">{{ partido_destacado.equipo_local.nombre|default:"TBD" }}</span>
+      </div>
+      <div class="featured-match-vs">VS</div>
+      <div class="featured-match-team">
+        {% if partido_destacado.equipo_visitante and partido_destacado.equipo_visitante.bandera %}
+        <img class="featured-match-flag" src="{{ partido_destacado.equipo_visitante.bandera.url }}" alt="">
+        {% endif %}
+        <span class="featured-match-team-name">{{ partido_destacado.equipo_visitante.nombre|default:"TBD" }}</span>
+      </div>
+    </div>
+    <div class="featured-match-info">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      {{ partido_destacado.fecha|date:"l d F Y · H:i" }}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      {{ partido_destacado.estadio.nombre }}, {{ partido_destacado.estadio.ciudad }}
+    </div>
+    <div class="final-countdown" id="nextCountdown">
+      <div class="final-countdown-block"><span class="final-countdown-num" id="nDias">00</span><span class="final-countdown-label">Días</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="nHoras">00</span><span class="final-countdown-label">Horas</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="nMinutos">00</span><span class="final-countdown-label">Minutos</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="nSegundos">00</span><span class="final-countdown-label">Segundos</span></div>
+    </div>
+    <a href="{% url 'detalle_partido' partido_destacado.pk %}" class="featured-match-btn">
+      Comprar entrada
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+{% endif %}
 <h2 class="section-title">Explorar</h2>
 <div class="card-grid">
   <a href="{% url 'lista_estadios' %}" class="feature-card">
-    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/Stadiums.jpg' %}')"></div>
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/backgrounds/Stadiums.jpg' %}')"></div>
     <div class="feature-card-body">
       <div>
         <h3>Estadios</h3>
@@ -57,7 +118,7 @@
     </div>
   </a>
   <a href="{% url 'lista_partidos' %}" class="feature-card">
-    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/opening.jpg' %}')"></div>
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/backgrounds/opening.jpg' %}')"></div>
     <div class="feature-card-body">
       <div>
         <h3>Partidos</h3>
@@ -67,7 +128,7 @@
     </div>
   </a>
   <a href="{% url 'lista_equipos' %}" class="feature-card">
-    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/Qualifiers.jpg' %}')"></div>
+    <div class="feature-card-image" style="background-image: url('{% static 'Api/images/backgrounds/Qualifiers.jpg' %}')"></div>
     <div class="feature-card-body">
       <div>
         <h3>Equipos</h3>
@@ -78,36 +139,123 @@
   </a>
 </div>
 
-<!-- ─── PRÓXIMOS PARTIDOS ────────────────────── -->
-<div class="matches-card">
-  <h3>Próximos partidos</h3>
-  {% if partidos_proximos %}
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Local</th>
-          <th>Visitante</th>
-          <th>Fase</th>
-          <th>Estadio</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in partidos_proximos %}
-        <tr>
-          <td>{{ p.fecha|date:"d/m/Y H:i" }}</td>
-          <td>{{ p.equipo_local }}</td>
-          <td>{{ p.equipo_visitante }}</td>
-          <td>{{ p.get_fase_display }}</td>
-          <td>{{ p.estadio.nombre }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p class="p-20 text-muted">No hay partidos próximos cargados.</p>
-  {% endif %}
+<!-- ─── DESTACADOS ──────────────────────────── -->
+<h2 class="section-title">Destacados</h2>
+<div class="destacados-carousel">
+  <button class="destacados-btn destacados-btn-prev" id="destPrev" aria-label="Anterior">‹</button>
+  <div class="destacados-viewport">
+    <div class="destacados-track" id="destTrack">
+      {% for p in partidos_destacados %}
+      {% if forloop.counter0|divisibleby:2 %}<div class="destacados-slide">{% endif %}
+      <div class="partido-card">
+        <div class="partido-card-bg" style="background-image: url('{% if p.estadio.imagen %}{{ p.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+        <div class="partido-card-overlay"></div>
+        <div class="partido-card-content">
+          <div class="partido-teams">
+            <div class="partido-team">
+              {% if p.equipo_local %}
+              {% if p.equipo_local.bandera %}
+              <img class="partido-team-flag" src="{{ p.equipo_local.bandera.url }}" alt="{{ p.equipo_local.codigo_fifa }}">
+              {% else %}
+              <span class="partido-team-flag-placeholder"></span>
+              {% endif %}
+              <span class="partido-team-name">{{ p.equipo_local.nombre }}</span>
+              <span class="partido-team-code">{{ p.equipo_local.codigo_fifa }}</span>
+              {% else %}
+              <span class="partido-team-flag-placeholder"></span>
+              <span class="partido-team-name">TBD</span>
+              {% endif %}
+            </div>
+            <div class="partido-vs">VS</div>
+            <div class="partido-team">
+              {% if p.equipo_visitante %}
+              {% if p.equipo_visitante.bandera %}
+              <img class="partido-team-flag" src="{{ p.equipo_visitante.bandera.url }}" alt="{{ p.equipo_visitante.codigo_fifa }}">
+              {% else %}
+              <span class="partido-team-flag-placeholder"></span>
+              {% endif %}
+              <span class="partido-team-name">{{ p.equipo_visitante.nombre }}</span>
+              <span class="partido-team-code">{{ p.equipo_visitante.codigo_fifa }}</span>
+              {% else %}
+              <span class="partido-team-flag-placeholder"></span>
+              <span class="partido-team-name">TBD</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="partido-info">
+            <div class="partido-info-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              {{ p.fecha|date:"d/m/Y H:i" }}
+            </div>
+            <div class="partido-info-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              {{ p.estadio.nombre }}, {{ p.estadio.ciudad }}
+            </div>
+          </div>
+          <div class="partido-footer">
+            <span class="partido-precio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg> Desde ${{ p.precio_general|floatformat:0 }} USD</span>
+            <a href="{% url 'detalle_partido' p.pk %}" class="partido-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Comprar entrada
+            </a>
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:2 or forloop.last %}</div>{% endif %}
+      {% empty %}
+      <div class="partidos-empty">No hay partidos destacados.</div>
+      {% endfor %}
+    </div>
+  </div>
+  <button class="destacados-btn destacados-btn-next" id="destNext" aria-label="Siguiente">›</button>
 </div>
+<div class="destacados-dots" id="destDots"></div>
+
+<!-- ─── CARD DE LA FINAL ──────────────────── -->
+{% if partido_final %}
+<h2 class="section-title">La Gran Final</h2>
+<div class="featured-match final-card">
+  <div class="featured-match-bg" style="background-image: url('{% if partido_final.estadio.imagen %}{{ partido_final.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+  <div class="featured-match-overlay"></div>
+  <div class="featured-match-content">
+    <div class="featured-match-badge">La Gran Final</div>
+    <div class="featured-match-teams">
+      <div class="featured-match-team">
+        {% if partido_final.equipo_local and partido_final.equipo_local.bandera %}
+        <img class="featured-match-flag" src="{{ partido_final.equipo_local.bandera.url }}" alt="">
+        {% endif %}
+        <span class="featured-match-team-name">{{ partido_final.equipo_local.nombre|default:"TBD" }}</span>
+      </div>
+      <div class="featured-match-vs">VS</div>
+      <div class="featured-match-team">
+        {% if partido_final.equipo_visitante and partido_final.equipo_visitante.bandera %}
+        <img class="featured-match-flag" src="{{ partido_final.equipo_visitante.bandera.url }}" alt="">
+        {% endif %}
+        <span class="featured-match-team-name">{{ partido_final.equipo_visitante.nombre|default:"TBD" }}</span>
+      </div>
+    </div>
+    <div class="featured-match-info">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      {{ partido_final.fecha|date:"l d F Y · H:i" }}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      {{ partido_final.estadio.nombre }}, {{ partido_final.estadio.ciudad }}
+    </div>
+    <div class="final-countdown" id="finalCountdown">
+      <div class="final-countdown-block"><span class="final-countdown-num" id="fcDias">00</span><span class="final-countdown-label">Días</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="fcHoras">00</span><span class="final-countdown-label">Horas</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="fcMinutos">00</span><span class="final-countdown-label">Minutos</span></div>
+      <div class="final-countdown-sep">:</div>
+      <div class="final-countdown-block"><span class="final-countdown-num" id="fcSegundos">00</span><span class="final-countdown-label">Segundos</span></div>
+    </div>
+    <a href="{% url 'detalle_partido' partido_final.pk %}" class="featured-match-btn">
+      Comprar entrada
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+{% endif %}
 
 <script>
 (function(){
@@ -131,6 +279,88 @@
   allLabels.forEach(l => l.addEventListener('click', () => { clearInterval(timer); resetTimer(); }));
   window.__carouselNext = next;
   window.__carouselPrev = prev;
+})();
+
+(function(){
+  var track = document.getElementById('destTrack');
+  if (!track) return;
+  var slides = track.querySelectorAll('.destacados-slide');
+  var totalSlides = slides.length;
+  if (totalSlides <= 1) { var car = document.querySelector('.destacados-carousel'); if (car) car.classList.add('destacados-no-nav'); return; }
+  var currentPage = 0;
+
+  function updateCarousel() {
+    var offset = -currentPage * 100;
+    track.style.transform = 'translateX(' + offset + '%)';
+    document.querySelectorAll('#destDots .dot').forEach(function(d, i) { d.classList.toggle('active', i === currentPage); });
+  }
+
+  var autoplayTimer = setInterval(function() {
+    currentPage = (currentPage + 1) % totalSlides;
+    updateCarousel();
+  }, 5000);
+
+  document.getElementById('destNext').addEventListener('click', function() { clearInterval(autoplayTimer); currentPage = (currentPage + 1) % totalSlides; updateCarousel(); });
+  document.getElementById('destPrev').addEventListener('click', function() { clearInterval(autoplayTimer); currentPage = (currentPage - 1 + totalSlides) % totalSlides; updateCarousel(); });
+
+  var dotsContainer = document.getElementById('destDots');
+  for (var i = 0; i < totalSlides; i++) {
+    (function(idx) {
+      var dot = document.createElement('button');
+      dot.className = 'dot' + (idx === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Ir a página ' + (idx+1));
+      dot.addEventListener('click', function() { clearInterval(autoplayTimer); currentPage = idx; updateCarousel(); });
+      dotsContainer.appendChild(dot);
+    })(i);
+  }
+  updateCarousel();
+})();
+
+(function(){
+  var target = new Date('{{ partido_destacado.fecha|date:"c" }}').getTime();
+  if (!target) return;
+  function updateNextCountdown() {
+    var now = new Date().getTime();
+    var diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('nDias').textContent = '00';
+      document.getElementById('nHoras').textContent = '00';
+      document.getElementById('nMinutos').textContent = '00';
+      document.getElementById('nSegundos').textContent = '00';
+      return;
+    }
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var minutes = Math.floor((diff % 3600000) / 60000);
+    var seconds = Math.floor((diff % 60000) / 1000);
+    document.getElementById('nDias').textContent = String(days).padStart(2, '0');
+    document.getElementById('nHoras').textContent = String(hours).padStart(2, '0');
+    document.getElementById('nMinutos').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('nSegundos').textContent = String(seconds).padStart(2, '0');
+  }
+  updateNextCountdown();
+  setInterval(updateNextCountdown, 1000);
+})();
+
+(function(){
+  var finalDate = new Date('2026-07-19T19:00:00Z').getTime();
+  function updateFinalCountdown() {
+    var now = new Date().getTime();
+    var diff = finalDate - now;
+    if (diff <= 0) {
+      document.getElementById('fcDias').textContent = '00';
+      document.getElementById('fcHoras').textContent = '00';
+      document.getElementById('fcMinutos').textContent = '00';
+      document.getElementById('fcSegundos').textContent = '00';
+      return;
+    }
+    document.getElementById('fcDias').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('fcHoras').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('fcMinutos').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('fcSegundos').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  }
+  updateFinalCountdown();
+  setInterval(updateFinalCountdown, 1000);
 })();
 </script>
 {% endblock %}

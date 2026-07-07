@@ -1,0 +1,142 @@
+.entrada-card {
+  background: #fff; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s cubic-bezier(0.25,0.1,0.25,1), transform 0.3s cubic-bezier(0.25,0.1,0.25,1);
+}
+.entrada-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+.entrada-card.pasada { opacity: 0.6; }
+.entrada-card.pasada:hover { opacity: 0.8; }
+.entrada-card-strip {
+  height: 4px;
+  background: linear-gradient(90deg, #1a1a2e, #e94560);
+}
+.entrada-card-body { padding: 20px 24px; }
+
+.entrada-card-header,
+.entrada-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px;
+}
+.entrada-card-logos {
+  display: flex; align-items: center; gap: 10px;
+}
+.entrada-card-logo { height: 24px; width: auto; }
+
+.entrada-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.entrada-badge-upcoming { background: #e6f4ea; color: #137333; }
+.entrada-badge-played { background: #fce8e6; color: #c5221f; }
+.entrada-badge-confirmed { background: #e6f4ea; color: #137333; }
+
+.entrada-partido {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 0; border-top: 1px solid #e8eaed;
+  border-bottom: 1px solid #e8eaed;
+  margin-bottom: 14px;
+}
+.entrada-partido-flags {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.entrada-partido-flag {
+  width: 36px; height: 27px; border-radius: 4px;
+  object-fit: cover; background: #f0f0f0;
+}
+.entrada-partido-vs {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700; font-size: 0.7rem; color: #9aa0a6;
+}
+.entrada-partido-info { flex: 1; }
+.entrada-partido-nombre {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; font-size: 0.95rem; color: #000;
+}
+.entrada-partido-detalle {
+  font-size: 0.82rem; color: #5f6368; margin-top: 2px;
+}
+
+.entrada-detalles {
+  display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center;
+}
+.entrada-detalle-label {
+  font-size: 0.7rem; font-weight: 600; color: #9aa0a6;
+  text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;
+}
+.entrada-detalle-value {
+  font-size: 0.88rem; font-weight: 600; color: #000;
+}
+.entrada-detalle-value.codigo {
+  font-family: 'Courier New', monospace; letter-spacing: 1.5px;
+  background: #f8f9fa; padding: 3px 8px; border-radius: 4px;
+  display: inline-block; font-size: 0.82rem;
+}
+
+.exito-header {
+  text-align: center; padding: 40px 20px 32px;
+}
+.exito-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #e6f4ea; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.exito-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem; font-weight: 700; color: #000;
+  margin-bottom: 6px;
+}
+.exito-header p { color: #5f6368; font-size: 0.95rem; }
+
+.entradas-grid {
+  display: flex; flex-direction: column; gap: 20px;
+  max-width: 640px; margin: 0 auto 32px;
+}
+
+.entrada-actions {
+  display: flex; justify-content: center; gap: 12px;
+  flex-wrap: wrap; margin-top: 8px;
+}
+
+.misentradas-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px;
+}
+.misentradas-header h1 { margin: 0; }
+.misentradas-count {
+  font-size: 0.88rem; color: #5f6368;
+}
+.misentradas-section { margin-bottom: 36px; }
+.misentradas-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem; font-weight: 700; color: #000;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid #e8eaed;
+  display: flex; align-items: center; gap: 10px;
+}
+.misentradas-section-title .count {
+  font-size: 0.82rem; color: #9aa0a6; font-weight: 500;
+}
+.misentradas-grid {
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.misentradas-empty {
+  text-align: center; padding: 80px 20px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.misentradas-empty-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #f0f0f0; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.misentradas-empty h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem; font-weight: 700; color: #000; margin-bottom: 6px;
+}
+.misentradas-empty p { color: #5f6368; margin-bottom: 24px; }

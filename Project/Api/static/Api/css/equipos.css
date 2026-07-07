@@ -1,0 +1,215 @@
+.equipos-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px;
+}
+.equipos-header h1 { margin: 0; }
+.equipos-actions { display: flex; align-items: center; gap: 10px; }
+
+.equipo-search {
+  position: relative; margin-bottom: 12px;
+}
+.equipo-search-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: #9aa0a6; pointer-events: none;
+}
+.equipo-search-input {
+  width: 100%; padding: 12px 14px 12px 42px;
+  border: 1.5px solid #d2d5d9; border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 0.92rem;
+  background: #fff; color: #000; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.equipo-search-input:focus {
+  border-color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.equipo-search-input::placeholder { color: #9aa0a6; }
+
+.equipo-filters {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 24px; align-items: flex-end;
+}
+.equipo-filter-group {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.equipo-filter-label {
+  font-size: 0.78rem; font-weight: 600; color: #5f6368;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.equipo-filter-select {
+  padding: 10px 32px 10px 12px;
+  border: 1.5px solid #d2d5d9; border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  background: #fff; color: #000; outline: none;
+  cursor: pointer; min-width: 170px;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235f6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.equipo-filter-select:focus {
+  border-color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.equipo-filter-clear {
+  padding: 10px 18px; border-radius: 10px;
+  background: transparent; color: #000;
+  border: 1.5px solid #d2d5d9;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; font-size: 0.82rem;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+.equipo-filter-clear:hover {
+  border-color: #000; background: rgba(0,0,0,0.04);
+}
+
+.equipo-count {
+  font-size: 0.88rem; color: #5f6368; margin-bottom: 16px;
+}
+
+.equipo-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.equipo-card {
+  background: #fff; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex; flex-direction: column;
+}
+.equipo-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.equipo-card--exiting {
+  opacity: 0; transform: scale(0.95); pointer-events: none;
+}
+.equipo-card--appearing {
+  animation: equipoAppear 0.3s ease both;
+}
+@keyframes equipoAppear {
+  0% { opacity: 0; transform: scale(0.95) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.equipo-card-image {
+  height: 160px; min-height: 160px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: url('../images/backgrounds/Qualifiers.jpg') center/cover;
+  overflow: hidden; position: relative;
+}
+.equipo-card-image::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+.equipo-card-image img {
+  height: 100px; width: auto; object-fit: contain;
+  transition: transform 0.4s ease; position: relative; z-index: 1;
+}
+.equipo-card:hover .equipo-card-image img { transform: scale(1.08); }
+.equipo-card-image .no-flag {
+  font-size: 3rem; font-weight: 700; color: #fff;
+  font-family: 'Poppins', sans-serif; position: relative; z-index: 1;
+}
+
+.equipo-card-body {
+  padding: 20px;
+  display: flex; flex-direction: column; flex: 1;
+}
+.equipo-card-body h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem; font-weight: 600; color: #000; margin-bottom: 4px;
+}
+.equipo-card-code {
+  font-size: 0.75rem; color: #9aa0a6; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 12px;
+}
+.equipo-card-info {
+  display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;
+  flex: 1;
+}
+.equipo-card-info-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.88rem; color: #5f6368;
+}
+.equipo-card-info-item svg { flex-shrink: 0; }
+.equipo-card-info-item strong { color: #000; font-weight: 600; }
+
+.equipo-card-actions { display: flex; gap: 8px; }
+
+.equipo-empty {
+  grid-column: 1 / -1; text-align: center; padding: 60px 20px;
+  color: #6b7280; font-size: 1rem;
+}
+
+.equipo-detail-header {
+  display: flex; align-items: center; gap: 24px;
+  background: #fff; border-radius: 16px; padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 32px;
+}
+.equipo-detail-flag {
+  width: 96px; height: 96px; border-radius: 12px;
+  object-fit: contain; background: #f0f0f0;
+  flex-shrink: 0;
+}
+.equipo-detail-flag-placeholder {
+  width: 96px; height: 96px; border-radius: 12px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif; font-weight: 700;
+  font-size: 2rem; color: #9aa0a6; flex-shrink: 0;
+}
+.equipo-detail-info { flex: 1; }
+.equipo-detail-info h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem; font-weight: 700; color: #000; margin: 0;
+}
+.equipo-detail-code {
+  font-size: 0.85rem; color: #9aa0a6; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 10px;
+}
+.equipo-detail-meta {
+  display: flex; flex-wrap: wrap; gap: 16px 24px;
+}
+.equipo-detail-meta-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.88rem; color: #5f6368;
+}
+.equipo-detail-meta-item strong { color: #000; }
+.equipo-detail-meta-item svg { flex-shrink: 0; }
+
+.calendar-tabs {
+  display: flex; gap: 8px; margin-bottom: 24px;
+}
+.calendar-tab {
+  padding: 8px 20px; border-radius: 8px; border: 1.5px solid #d2d5d9;
+  background: transparent; color: #5f6368;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.82rem;
+  cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.calendar-tab:hover { border-color: #000; color: #000; }
+.calendar-tab.active { background: #000; border-color: #000; color: #fff; }
+
+.calendar-fase-section { margin-bottom: 36px; }
+.calendar-fase-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem; font-weight: 700; color: #000;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid #e8eaed;
+  display: flex; align-items: center; gap: 10px;
+}
+.calendar-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.calendar-badge-upcoming { background: #e6f4ea; color: #137333; }
+.calendar-badge-played { background: #fce8e6; color: #c5221f; }
+.calendar-no-matches {
+  text-align: center; padding: 40px 20px;
+  color: #6b7280; font-size: 0.95rem;
+}
+
+@media (max-width: 700px) {
+  .equipo-grid { grid-template-columns: 1fr; }
+  .equipos-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .equipos-actions { width: 100%; }
+  .equipos-actions .btn { width: 100%; text-align: center; }
+}

@@ -1,54 +1,185 @@
 {% extends 'canchas/base.html' %}
+{% load static %}
+{% block title %} - Partidos{% endblock %}
 {% block content %}
 
-<div class="flex justify-between items-center">
+<link rel="stylesheet" href="{% static 'Api/css/partidos.css' %}">
+
+<div class="partidos-header">
   <h1>Partidos</h1>
- {% if request.user.perfil.rol == 'admin' %}
+  {% if request.user.perfil.rol == 'admin' %}
   <a href="{% url 'crear_partido' %}" class="btn btn-primary">+ Nuevo partido</a>
-{% endif %}
+  {% endif %}
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Local</th>
-      <th>Visitante</th>
-      <th>Resultado</th>
-      <th>Fase</th>
-      <th>Estadio</th>
-      <th>Acciones</th>
-      <th>Entradas</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in partidos %}
-    <tr>
-      <td>{{ p.fecha|date:"d/m/Y H:i" }}</td>
-      <td>{{ p.equipo_local }}</td>
-      <td>{{ p.equipo_visitante }}</td>
-      <td>{{ p.resultado }}</td>
-      <td>{{ p.get_fase_display }}</td>
-      <td>{{ p.cancha.estadio.nombre }}</td>
-      <td>
-  {% if request.user.perfil.rol == 'admin' %}
-    <a href="{% url 'editar_partido' p.pk %}" class="btn btn-warning">Editar</a>
-    <a href="{% url 'eliminar_partido' p.pk %}" class="btn btn-danger">Eliminar</a>
-  {% endif %}
-</td>
-<td>
-  {% if not p.ya_jugado %}
-    <a href="{% url 'detalle_partido' p.pk %}" class="btn btn-primary">🎟️ Comprar</a>
-  {% else %}
-    <span class="text-muted text-sm">Finalizado</span>
-  {% endif %}
-</td>
-      </td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="7">No hay partidos registrados.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="estadio-search" style="margin-bottom:8px;">
+  <svg class="estadio-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  <input type="text" id="partidoSearch" class="estadio-search-input" placeholder="Buscar partido por equipo, estadio, ciudad o país..." autocomplete="off">
+</div>
 
+<div id="partidoNoResults" class="partidos-empty hidden" style="margin-top:0">No se encontraron partidos.</div>
+
+<form class="partidos-filtros" method="get" action="{% url 'lista_partidos' %}">
+  <div class="partidos-filtros-label-top">Filtrar por:</div>
+  <div class="partidos-filtros-inner">
+    <div class="partidos-filtro-group">
+      <label class="partidos-filtro-label" for="filterPais">País</label>
+      <select id="filterPais" name="pais" class="partidos-filtro-select" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        {% for p in paises %}
+        <option value="{{ p }}" {% if pais_actual == p %}selected{% endif %}>{{ p }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="partidos-filtro-group">
+      <label class="partidos-filtro-label" for="filterCiudad">Ciudad</label>
+      <select id="filterCiudad" name="ciudad" class="partidos-filtro-select" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        {% for c in ciudades %}
+        <option value="{{ c }}" {% if ciudad_actual == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="partidos-filtro-group">
+      <label class="partidos-filtro-label" for="filterEstadio">Estadio</label>
+      <select id="filterEstadio" name="estadio" class="partidos-filtro-select" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        {% for e in estadios %}
+        <option value="{{ e.id }}" {% if estadio_actual|stringformat:'s' == e.id|stringformat:'s' %}selected{% endif %}>{{ e.nombre }} ({{ e.ciudad }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="partidos-filtro-group">
+      <label class="partidos-filtro-label" for="filterEquipo">Equipo</label>
+      <select id="filterEquipo" name="equipo" class="partidos-filtro-select" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        {% for eq in equipos %}
+        <option value="{{ eq.id }}" {% if equipo_actual|stringformat:'s' == eq.id|stringformat:'s' %}selected{% endif %}>{{ eq.nombre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="partidos-filtro-group">
+      <label class="partidos-filtro-label" for="filterFase">Fase</label>
+      <select id="filterFase" name="fase" class="partidos-filtro-select" onchange="this.form.submit()">
+        <option value="" {% if not fase_actual %}selected{% endif %}>Todos</option>
+        {% for key, label in FASE_CHOICES %}
+        <option value="{{ key }}" {% if fase_actual == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="partidos-filtro-actions">
+      <a href="{% url 'lista_partidos' %}" class="partidos-filtro-btn partidos-filtro-btn-outline {% if not fase_actual and not equipo_actual and not pais_actual and not ciudad_actual and not estadio_actual %}hidden{% endif %}">Limpiar</a>
+    </div>
+  </div>
+</form>
+
+{% regroup partidos by get_fase_display as partidos_por_fase %}
+
+{% for grupo in partidos_por_fase %}
+<section class="partidos-fase-section">
+  <h2 class="partidos-fase-title">{{ grupo.grouper }}</h2>
+  <div class="partidos-grid">
+    {% for p in grupo.list %}
+    <div class="partido-card" data-equipos="{% if p.equipo_local %}{{ p.equipo_local.nombre|lower }} {{ p.equipo_local.codigo_fifa|lower }}{% endif %} {% if p.equipo_visitante %}{{ p.equipo_visitante.nombre|lower }} {{ p.equipo_visitante.codigo_fifa|lower }}{% endif %}" data-estadio="{{ p.estadio.nombre|lower }}" data-ciudad="{{ p.estadio.ciudad|lower }}" data-pais="{{ p.estadio.pais|lower }}" data-fase="{{ p.get_fase_display|lower }}">
+      <div class="partido-card-bg" style="background-image: url('{% if p.estadio.imagen %}{{ p.estadio.imagen.url }}{% else %}{% static 'Api/images/backgrounds/Stadiums.jpg' %}{% endif %}')"></div>
+      <div class="partido-card-overlay"></div>
+      <div class="partido-card-content">
+        <div class="partido-teams">
+          <div class="partido-team">
+            {% if p.equipo_local %}
+            {% if p.equipo_local.bandera %}
+            <img class="partido-team-flag" src="{{ p.equipo_local.bandera.url }}" alt="{{ p.equipo_local.codigo_fifa }}">
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            {% endif %}
+            <span class="partido-team-name">{{ p.equipo_local.nombre }}</span>
+            <span class="partido-team-code">{{ p.equipo_local.codigo_fifa }}</span>
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            <span class="partido-team-name">TBD</span>
+            {% endif %}
+          </div>
+          <div class="partido-vs">VS</div>
+          <div class="partido-team">
+            {% if p.equipo_visitante %}
+            {% if p.equipo_visitante.bandera %}
+            <img class="partido-team-flag" src="{{ p.equipo_visitante.bandera.url }}" alt="{{ p.equipo_visitante.codigo_fifa }}">
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            {% endif %}
+            <span class="partido-team-name">{{ p.equipo_visitante.nombre }}</span>
+            <span class="partido-team-code">{{ p.equipo_visitante.codigo_fifa }}</span>
+            {% else %}
+            <span class="partido-team-flag-placeholder"></span>
+            <span class="partido-team-name">TBD</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="partido-info">
+          <div class="partido-info-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            {{ p.fecha|date:"d/m/Y H:i" }}
+          </div>
+          <div class="partido-info-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {{ p.estadio.nombre }}, {{ p.estadio.ciudad }}
+          </div>
+        </div>
+        <div class="partido-footer">
+          <span class="partido-precio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg> Desde ${{ p.precio_general|floatformat:0 }} USD</span>
+          <a href="{% url 'detalle_partido' p.pk %}" class="partido-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            Comprar entrada
+          </a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="partidos-empty">No hay partidos en esta fase.</div>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<div class="partidos-empty">No hay partidos cargados.</div>
+{% endfor %}
+
+<script>
+function normalize(str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+function getCards() {
+  return document.querySelectorAll('.partido-card');
+}
+function applySearch() {
+  const q = normalize(document.getElementById('partidoSearch').value).trim();
+  const cards = getCards();
+  let visible = 0;
+  cards.forEach(c => {
+    const text = normalize((c.dataset.equipos || '') + ' ' + (c.dataset.estadio || '') + ' ' + (c.dataset.ciudad || '') + ' ' + (c.dataset.pais || '') + ' ' + (c.dataset.fase || ''));
+    const match = !q || text.includes(q);
+    if (match) {
+      if (c.dataset._timer) { clearTimeout(+c.dataset._timer); c.dataset._timer = ''; }
+      if (c.style.display === 'none') {
+        c.style.display = '';
+        c.classList.add('partido-card--appearing');
+        setTimeout(() => c.classList.remove('partido-card--appearing'), 350);
+      }
+      c.classList.remove('estadio-card--exiting');
+      visible++;
+    } else if (!c.classList.contains('estadio-card--exiting')) {
+      c.classList.add('estadio-card--exiting');
+      c.dataset._timer = setTimeout(() => {
+        c.style.display = 'none';
+        c.dataset._timer = '';
+      }, 250);
+    }
+  });
+  document.querySelectorAll('.partidos-fase-section').forEach(s => {
+    const cardsVisible = [...s.querySelectorAll('.partido-card')].filter(c => c.style.display !== 'none').length;
+    s.style.display = cardsVisible > 0 ? '' : 'none';
+  });
+  document.getElementById('partidoNoResults').classList.toggle('hidden', visible > 0);
+}
+document.getElementById('partidoSearch').addEventListener('input', applySearch);
+</script>
 {% endblock %}
