@@ -66,6 +66,7 @@ class Jugador(models.Model):
 class Partido(models.Model):
     FASE_CHOICES = [
         ('grupos', 'Fase de Grupos'),
+        ('dieciseisavos', 'Ronda de 32'),
         ('octavos', 'Octavos de Final'),
         ('cuartos', 'Cuartos de Final'),
         ('semifinal', 'Semifinal'),
@@ -125,7 +126,7 @@ class Partido(models.Model):
         return f"{self.nombre_partido()} ({self.fecha.strftime('%d/%m/%Y')})"
 
     class Meta:
-        ordering = ['fecha']
+        ordering = ['-fecha']
 
 
 class Entrada(models.Model):

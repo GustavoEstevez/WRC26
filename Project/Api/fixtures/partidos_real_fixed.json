@@ -1,0 +1,1902 @@
+[
+  {
+    "model": "Api.partido",
+    "pk": 1,
+    "fields": {
+      "estadio": 3,
+      "equipo_local": 1,
+      "equipo_visitante": 2,
+      "descripcion": "",
+      "fecha": "2026-06-11T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 2,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 3,
+      "equipo_visitante": 4,
+      "descripcion": "",
+      "fecha": "2026-06-11T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 3,
+    "fields": {
+      "estadio": 1,
+      "equipo_local": 5,
+      "equipo_visitante": 6,
+      "descripcion": "",
+      "fecha": "2026-06-12T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 4,
+    "fields": {
+      "estadio": 2,
+      "equipo_local": 8,
+      "equipo_visitante": 7,
+      "descripcion": "",
+      "fecha": "2026-06-13T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 5,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": 9,
+      "equipo_visitante": 10,
+      "descripcion": "",
+      "fecha": "2026-06-13T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 6,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 11,
+      "equipo_visitante": 12,
+      "descripcion": "",
+      "fecha": "2026-06-13T02:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 7,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 13,
+      "equipo_visitante": 14,
+      "descripcion": "",
+      "fecha": "2026-06-12T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 8,
+    "fields": {
+      "estadio": 15,
+      "equipo_local": 15,
+      "equipo_visitante": 16,
+      "descripcion": "",
+      "fecha": "2026-06-13T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 9,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 17,
+      "equipo_visitante": 20,
+      "descripcion": "",
+      "fecha": "2026-06-14T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 7,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 10,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 18,
+      "equipo_visitante": 19,
+      "descripcion": "",
+      "fecha": "2026-06-14T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 11,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 21,
+      "equipo_visitante": 22,
+      "descripcion": "",
+      "fecha": "2026-06-14T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 12,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": 23,
+      "equipo_visitante": 24,
+      "descripcion": "",
+      "fecha": "2026-06-14T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 5,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 13,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 25,
+      "equipo_visitante": 26,
+      "descripcion": "",
+      "fecha": "2026-06-15T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 14,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": 27,
+      "equipo_visitante": 28,
+      "descripcion": "",
+      "fecha": "2026-06-15T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 15,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 29,
+      "equipo_visitante": 32,
+      "descripcion": "",
+      "fecha": "2026-06-15T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 16,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 30,
+      "equipo_visitante": 31,
+      "descripcion": "",
+      "fecha": "2026-06-15T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 17,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 33,
+      "equipo_visitante": 34,
+      "descripcion": "",
+      "fecha": "2026-06-16T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 18,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": 35,
+      "equipo_visitante": 36,
+      "descripcion": "",
+      "fecha": "2026-06-16T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 19,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 37,
+      "equipo_visitante": 39,
+      "descripcion": "",
+      "fecha": "2026-06-17T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 20,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 40,
+      "equipo_visitante": 38,
+      "descripcion": "",
+      "fecha": "2026-06-17T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 3,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 21,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 41,
+      "equipo_visitante": 42,
+      "descripcion": "",
+      "fecha": "2026-06-17T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 22,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 43,
+      "equipo_visitante": 44,
+      "descripcion": "",
+      "fecha": "2026-06-17T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 23,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 45,
+      "equipo_visitante": 46,
+      "descripcion": "",
+      "fecha": "2026-06-16T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 24,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 47,
+      "equipo_visitante": 48,
+      "descripcion": "",
+      "fecha": "2026-06-16T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 25,
+    "fields": {
+      "estadio": 4,
+      "equipo_local": 1,
+      "equipo_visitante": 3,
+      "descripcion": "",
+      "fecha": "2026-06-18T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 26,
+    "fields": {
+      "estadio": 3,
+      "equipo_local": 4,
+      "equipo_visitante": 2,
+      "descripcion": "",
+      "fecha": "2026-06-18T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 27,
+    "fields": {
+      "estadio": 2,
+      "equipo_local": 8,
+      "equipo_visitante": 6,
+      "descripcion": "",
+      "fecha": "2026-06-18T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 28,
+    "fields": {
+      "estadio": 1,
+      "equipo_local": 7,
+      "equipo_visitante": 5,
+      "descripcion": "",
+      "fecha": "2026-06-18T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 29,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 10,
+      "equipo_visitante": 11,
+      "descripcion": "",
+      "fecha": "2026-06-19T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 30,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": 9,
+      "equipo_visitante": 12,
+      "descripcion": "",
+      "fecha": "2026-06-19T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 31,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 13,
+      "equipo_visitante": 15,
+      "descripcion": "",
+      "fecha": "2026-06-19T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 32,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 16,
+      "equipo_visitante": 14,
+      "descripcion": "",
+      "fecha": "2026-06-19T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 33,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 17,
+      "equipo_visitante": 18,
+      "descripcion": "",
+      "fecha": "2026-06-20T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 34,
+    "fields": {
+      "estadio": 15,
+      "equipo_local": 19,
+      "equipo_visitante": 20,
+      "descripcion": "",
+      "fecha": "2026-06-20T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 35,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 21,
+      "equipo_visitante": 23,
+      "descripcion": "",
+      "fecha": "2026-06-20T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 5,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 36,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 22,
+      "equipo_visitante": 24,
+      "descripcion": "",
+      "fecha": "2026-06-20T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 37,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 25,
+      "equipo_visitante": 27,
+      "descripcion": "",
+      "fecha": "2026-06-21T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 38,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 26,
+      "equipo_visitante": 28,
+      "descripcion": "",
+      "fecha": "2026-06-21T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 39,
+    "fields": {
+      "estadio": 3,
+      "equipo_local": 29,
+      "equipo_visitante": 30,
+      "descripcion": "",
+      "fecha": "2026-06-21T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 40,
+    "fields": {
+      "estadio": 4,
+      "equipo_local": 31,
+      "equipo_visitante": 32,
+      "descripcion": "",
+      "fecha": "2026-06-21T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 41,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 33,
+      "equipo_visitante": 36,
+      "descripcion": "",
+      "fecha": "2026-06-22T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 42,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": 35,
+      "equipo_visitante": 34,
+      "descripcion": "",
+      "fecha": "2026-06-22T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 43,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 37,
+      "equipo_visitante": 40,
+      "descripcion": "",
+      "fecha": "2026-06-23T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 5,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 44,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 38,
+      "equipo_visitante": 39,
+      "descripcion": "",
+      "fecha": "2026-06-23T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 45,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 41,
+      "equipo_visitante": 43,
+      "descripcion": "",
+      "fecha": "2026-06-23T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 46,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 42,
+      "equipo_visitante": 44,
+      "descripcion": "",
+      "fecha": "2026-06-23T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 47,
+    "fields": {
+      "estadio": 5,
+      "equipo_local": 45,
+      "equipo_visitante": 47,
+      "descripcion": "",
+      "fecha": "2026-06-22T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 48,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 48,
+      "equipo_visitante": 46,
+      "descripcion": "",
+      "fecha": "2026-06-22T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 49,
+    "fields": {
+      "estadio": 3,
+      "equipo_local": 1,
+      "equipo_visitante": 4,
+      "descripcion": "",
+      "fecha": "2026-06-24T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 50,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 2,
+      "equipo_visitante": 3,
+      "descripcion": "",
+      "fecha": "2026-06-24T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 51,
+    "fields": {
+      "estadio": 2,
+      "equipo_local": 8,
+      "equipo_visitante": 5,
+      "descripcion": "",
+      "fecha": "2026-06-24T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 52,
+    "fields": {
+      "estadio": 1,
+      "equipo_local": 6,
+      "equipo_visitante": 7,
+      "descripcion": "",
+      "fecha": "2026-06-24T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 53,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 10,
+      "equipo_visitante": 12,
+      "descripcion": "",
+      "fecha": "2026-06-24T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 4,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 54,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": 11,
+      "equipo_visitante": 9,
+      "descripcion": "",
+      "fecha": "2026-06-24T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 3,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 55,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 13,
+      "equipo_visitante": 16,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 3,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 56,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 14,
+      "equipo_visitante": 15,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 57,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 20,
+      "equipo_visitante": 18,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 2,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 58,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 19,
+      "equipo_visitante": 17,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 59,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 22,
+      "equipo_visitante": 23,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 60,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 21,
+      "equipo_visitante": 24,
+      "descripcion": "",
+      "fecha": "2026-06-25T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 61,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 26,
+      "equipo_visitante": 27,
+      "descripcion": "",
+      "fecha": "2026-06-26T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 62,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 25,
+      "equipo_visitante": 28,
+      "descripcion": "",
+      "fecha": "2026-06-26T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 5,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 63,
+    "fields": {
+      "estadio": 4,
+      "equipo_local": 29,
+      "equipo_visitante": 31,
+      "descripcion": "",
+      "fecha": "2026-06-26T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 64,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 30,
+      "equipo_visitante": 32,
+      "descripcion": "",
+      "fecha": "2026-06-26T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 65,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": 35,
+      "equipo_visitante": 33,
+      "descripcion": "",
+      "fecha": "2026-06-26T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 4,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 66,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 36,
+      "equipo_visitante": 34,
+      "descripcion": "",
+      "fecha": "2026-06-26T22:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 5,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 67,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 38,
+      "equipo_visitante": 37,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 0,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 68,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 39,
+      "equipo_visitante": 40,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 69,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 41,
+      "equipo_visitante": 44,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 70,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 42,
+      "equipo_visitante": 43,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 71,
+    "fields": {
+      "estadio": 5,
+      "equipo_local": 45,
+      "equipo_visitante": 48,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 1,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 72,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 47,
+      "equipo_visitante": 46,
+      "descripcion": "",
+      "fecha": "2026-06-27T19:00:00Z",
+      "fase": "grupos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 3,
+      "precio_general": 150.0,
+      "precio_platea": 350.0,
+      "precio_vip": 700.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 73,
+    "fields": {
+      "estadio": 1,
+      "equipo_local": 5,
+      "equipo_visitante": 2,
+      "descripcion": "Ronda de 32 — Canada vs Sudáfrica",
+      "fecha": "2026-06-28T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 74,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": 9,
+      "equipo_visitante": 22,
+      "descripcion": "Ronda de 32 — Brasil vs Japón",
+      "fecha": "2026-06-29T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 75,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 17,
+      "equipo_visitante": 14,
+      "descripcion": "Ronda de 32 — Alemania vs Paraguay",
+      "fecha": "2026-06-29T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 76,
+    "fields": {
+      "estadio": 9,
+      "equipo_local": 21,
+      "equipo_visitante": 10,
+      "descripcion": "Ronda de 32 — Países Bajos vs Marruecos",
+      "fecha": "2026-06-29T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 77,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": 35,
+      "equipo_visitante": 18,
+      "descripcion": "Ronda de 32 — Noruega vs Costa de Marfil",
+      "fecha": "2026-06-30T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 78,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 33,
+      "equipo_visitante": 23,
+      "descripcion": "Ronda de 32 — Francia vs Suecia",
+      "fecha": "2026-06-30T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 79,
+    "fields": {
+      "estadio": 3,
+      "equipo_local": 1,
+      "equipo_visitante": 19,
+      "descripcion": "Ronda de 32 — México vs Ecuador",
+      "fecha": "2026-06-30T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 80,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": 41,
+      "equipo_visitante": 39,
+      "descripcion": "Ronda de 32 — Inglaterra vs Congo DR",
+      "fecha": "2026-07-01T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 81,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 25,
+      "equipo_visitante": 34,
+      "descripcion": "Ronda de 32 — Bélgica vs Senegal",
+      "fecha": "2026-07-01T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 2,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 82,
+    "fields": {
+      "estadio": 16,
+      "equipo_local": 13,
+      "equipo_visitante": 6,
+      "descripcion": "Ronda de 32 — USA vs Bosnia",
+      "fecha": "2026-07-01T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 83,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 29,
+      "equipo_visitante": 47,
+      "descripcion": "Ronda de 32 — España vs Austria",
+      "fecha": "2026-07-02T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 84,
+    "fields": {
+      "estadio": 2,
+      "equipo_local": 37,
+      "equipo_visitante": 42,
+      "descripcion": "Ronda de 32 — Portugal vs Croacia",
+      "fecha": "2026-07-02T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 85,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 8,
+      "equipo_visitante": 46,
+      "descripcion": "Ronda de 32 — Suiza vs Argelia",
+      "fecha": "2026-07-02T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 2,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 86,
+    "fields": {
+      "estadio": 15,
+      "equipo_local": 26,
+      "equipo_visitante": 15,
+      "descripcion": "Ronda de 32 — Egipto vs Australia",
+      "fecha": "2026-07-03T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 1,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 87,
+    "fields": {
+      "estadio": 5,
+      "equipo_local": 45,
+      "equipo_visitante": 32,
+      "descripcion": "Ronda de 32 — Argentina vs Cabo Verde",
+      "fecha": "2026-07-03T22:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 2,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 88,
+    "fields": {
+      "estadio": 11,
+      "equipo_local": 38,
+      "equipo_visitante": 43,
+      "descripcion": "Ronda de 32 — Colombia vs Ghana",
+      "fecha": "2026-07-03T19:00:00Z",
+      "fase": "octavos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 300.0,
+      "precio_platea": 600.0,
+      "precio_vip": 1200.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 89,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 10,
+      "equipo_visitante": 5,
+      "descripcion": "Cuartos de Final — Marruecos vs Canadá",
+      "fecha": "2026-07-04T22:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": 3,
+      "goles_visitante": 0,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 90,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 33,
+      "equipo_visitante": 14,
+      "descripcion": "Cuartos de Final — Francia vs Paraguay",
+      "fecha": "2026-07-04T22:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": 1,
+      "goles_visitante": 0,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 91,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 13,
+      "equipo_visitante": 25,
+      "descripcion": "Cuartos de Final — USA vs Bélgica",
+      "fecha": "2026-07-06T19:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 92,
+    "fields": {
+      "estadio": 8,
+      "equipo_local": 29,
+      "equipo_visitante": 37,
+      "descripcion": "Cuartos de Final — España vs Portugal",
+      "fecha": "2026-07-06T19:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 93,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 1,
+      "equipo_visitante": 41,
+      "descripcion": "Cuartos de Final — México vs Inglaterra",
+      "fecha": "2026-07-06T02:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 94,
+    "fields": {
+      "estadio": 14,
+      "equipo_local": 45,
+      "equipo_visitante": 26,
+      "descripcion": "Cuartos de Final — Argentina vs Egipto",
+      "fecha": "2026-07-07T16:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 95,
+    "fields": {
+      "estadio": 10,
+      "equipo_local": 38,
+      "equipo_visitante": 8,
+      "descripcion": "Cuartos de Final — Colombia vs Suiza",
+      "fecha": "2026-07-05T19:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 96,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": 9,
+      "equipo_visitante": 35,
+      "descripcion": "Cuartos de Final — Brasil vs Noruega",
+      "fecha": "2026-07-05T19:00:00Z",
+      "fase": "cuartos",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 500.0,
+      "precio_platea": 1000.0,
+      "precio_vip": 2000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 97,
+    "fields": {
+      "estadio": 7,
+      "equipo_local": null,
+      "equipo_visitante": null,
+      "descripcion": "Semifinal 1",
+      "fecha": "2026-07-14T19:00:00Z",
+      "fase": "semifinal",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 800.0,
+      "precio_platea": 1500.0,
+      "precio_vip": 3000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 98,
+    "fields": {
+      "estadio": 6,
+      "equipo_local": null,
+      "equipo_visitante": null,
+      "descripcion": "Semifinal 2",
+      "fecha": "2026-07-15T19:00:00Z",
+      "fase": "semifinal",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 800.0,
+      "precio_platea": 1500.0,
+      "precio_vip": 3000.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 99,
+    "fields": {
+      "estadio": 12,
+      "equipo_local": null,
+      "equipo_visitante": null,
+      "descripcion": "Tercer Puesto",
+      "fecha": "2026-07-18T22:00:00Z",
+      "fase": "tercer_puesto",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 600.0,
+      "precio_platea": 1200.0,
+      "precio_vip": 2500.0,
+      "entradas_disponibles": 5000
+    }
+  },
+  {
+    "model": "Api.partido",
+    "pk": 100,
+    "fields": {
+      "estadio": 13,
+      "equipo_local": null,
+      "equipo_visitante": null,
+      "descripcion": "FINAL — FIFA World Cup 2026",
+      "fecha": "2026-07-19T19:00:00Z",
+      "fase": "final",
+      "arbitro": "",
+      "goles_local": null,
+      "goles_visitante": null,
+      "precio_general": 1500.0,
+      "precio_platea": 3000.0,
+      "precio_vip": 6000.0,
+      "entradas_disponibles": 5000
+    }
+  }
+]
